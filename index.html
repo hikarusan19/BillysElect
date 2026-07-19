@@ -1,15 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=landingpage.html">
-    <script>
-      // Change URL from /landingpage.html to /billyselectronics
-      window.history.replaceState({}, '', '/billyselectronics');
-    </script>
-    <title>Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <script>
+    // Change URL from /landingpage.html to /billyselectronics
+    window.history.replaceState({}, '', '/billyselectronics');
+  </script>
+  <title>Billy's Electronics · Videoke & Sound</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    /* ----- reset & base ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Poppins', 'Montserrat', sans-serif;
+      background: #f8f9fc;
+      color: #1a1a1a;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ----- color variables ----- */
+    :root {
+      --primary: #0A4DBF;
+      --secondary: #FFC107;
+      --overlay: rgba(0, 0, 0, 0.68);
+      --white: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    /* ----- navbar (transparent) ----- */
+    .navbar-transparent {
+      background: transparent !important;
+      transition: all 0.3s ease;
+      padding: 14px 0;
+    }
+    .navbar-transparent .navbar-brand,
+    .navbar-transparent .nav-link {
+      color: white !important;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .navbar-transparent .nav-link:hover {
+      color: var(--secondary) !important;
+    }
+    .navbar-scrolled {
+      background: #0A4DBF !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .navbar-scrolled .navbar-brand,
+    .navbar-scrolled .nav-link {
+      color: white !important;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+    .navbar-brand i {
+      color: var(--secondary);
+      margin-right: 6px;
+    }
+
+    /* ----- hero section (full viewport) ----- */
+    .hero-section {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(var(--overlay), var(--overlay)), 
+                  url("Background/bg.jpg") center/cover no-repeat;
+      background-attachment: fixed;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      padding: 80px 0 40px;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-section > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 4.2rem;
+      line-height: 1.1;
+      color: white;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+    }
+    .hero-title .highlight {
+      color: var(--secondary);
+      display: inline-block;
+    }
+    .hero-desc {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      max-width: 540px;
+      margin: 1.5rem 0 2.2rem;
+      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-group-hero .btn {
+      padding: 12px 34px;
+      font-weight: 600;
+      border-radius: 60px;
+      transition: all 0.25s ease;
+      margin-right: 14px;
+      margin-bottom: 10px;
+      letter-spacing: 0.3px;
+    }
+    .btn-primary-custom {
+      background: var(--secondary);
+      border: none;
+      color: #1a1a1a;
+      box-shadow: 0 8px 22px rgba(255, 193, 7, 0.25);
+    }
+    .btn-primary-custom:hover {
+      background: #e6ae00;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 28px rgba(255, 193, 7, 0.35);
+      color: #0a0a0a;
+    }
+    .btn-outline-light-custom {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.7);
+      color: white;
+      backdrop-filter: blur(2px);
+    }
+    .btn-outline-light-custom:hover {
+      background: white;
+      color: #0A4DBF;
+      border-color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    /* glassmorphism cards (contact info) */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 1.5rem 1.2rem;
+      color: white;
+      transition: all 0.3s ease;
+      height: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .glass-card .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--secondary);
+    }
+    .glass-card .card-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.3px;
+      color: white;
+    }
+    .glass-card .card-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin: 6px 0 0;
+      line-height: 1.5;
+    }
+
+    /* floating scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      animation: floatDown 2.4s ease-in-out infinite;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      font-weight: 300;
+      backdrop-filter: blur(4px);
+      padding: 4px 18px;
+      border-radius: 40px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .scroll-indicator i {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 2px;
+    }
+    @keyframes floatDown {
+      0% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+      100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ----- sections ----- */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 2.6rem;
+      color: #111;
+    }
+    .section-subtitle {
+      color: #555;
+      font-weight: 400;
+    }
+
+    /* feature cards (why choose) */
+    .feature-card {
+      background: white;
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+      height: 100%;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+    .feature-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 28px 48px rgba(10, 77, 191, 0.08);
+      border-color: rgba(10, 77, 191, 0.12);
+    }
+    .feature-icon {
+      font-size: 2.6rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .feature-card h5 {
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    /* footer */
+    .footer-dark {
+      background: #0b0e1a;
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 0 1.5rem;
+    }
+    .footer-dark h6 {
+      color: white;
+      font-weight: 600;
+    }
+    .footer-dark a {
+      color: rgba(255,255,255,0.6);
+      transition: 0.2s;
+    }
+    .footer-dark a:hover {
+      color: var(--secondary);
+    }
+    .footer-divider {
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    /* animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ----- PHONE-SIZE RESPONSIVE (max-width: 576px) ----- */
+    @media (max-width: 576px) {
+      /* hero */
+      .hero-title {
+        font-size: 2.1rem !important;
+        line-height: 1.2;
+      }
+      .hero-desc {
+        font-size: 0.95rem !important;
+        max-width: 100%;
+        margin: 1rem 0 1.5rem;
+      }
+      .btn-group-hero .btn {
+        padding: 10px 22px !important;
+        font-size: 0.95rem;
+        margin-right: 6px;
+        width: 100%;
+        max-width: 200px;
+      }
+      .btn-group-hero {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      /* glass cards on phone: stack & smaller */
+      .glass-card {
+        padding: 1rem 0.8rem;
+        border-radius: 20px;
+      }
+      .glass-card .card-icon {
+        font-size: 1.4rem;
+      }
+      .glass-card .card-title {
+        font-size: 0.95rem;
+      }
+      .glass-card .card-text {
+        font-size: 0.8rem;
+      }
+      /* section title */
+      .section-title {
+        font-size: 1.8rem !important;
+      }
+      /* feature cards */
+      .feature-card {
+        padding: 1.5rem 1rem;
+      }
+      .feature-icon {
+        font-size: 2rem;
+      }
+      .feature-card h5 {
+        font-size: 1rem;
+      }
+      /* footer */
+      .footer-dark {
+        text-align: center;
+      }
+      .footer-dark .col-md-4 {
+        margin-bottom: 1.5rem;
+      }
+      /* scroll indicator hidden on small screens to avoid clutter */
+      .scroll-indicator {
+        display: none;
+      }
+      /* navbar brand smaller */
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* extra small tweaks for 375px and below */
+    @media (max-width: 375px) {
+      .hero-title {
+        font-size: 1.8rem !important;
+      }
+      .glass-card {
+        padding: 0.8rem 0.6rem;
+      }
+      .btn-group-hero .btn {
+        padding: 8px 16px !important;
+        font-size: 0.85rem;
+        max-width: 170px;
+      }
+    }
+
+    /* --- single CTA button (visit shop) --- */
+    .btn-visit-shop {
+      background: var(--secondary);
+      border: none;
+      color: #1a1a1a;
+      box-shadow: 0 8px 22px rgba(255, 193, 7, 0.25);
+      padding: 14px 48px;
+      font-weight: 600;
+      border-radius: 60px;
+      transition: all 0.25s ease;
+      font-size: 1.1rem;
+      display: inline-block;
+    }
+    .btn-visit-shop:hover {
+      background: #e6ae00;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 28px rgba(255, 193, 7, 0.35);
+      color: #0a0a0a;
+    }
+    .cta-single {
+      background: #0A4DBF;
+      padding: 3.5rem 0;
+      color: white;
+      text-align: center;
+    }
+    .cta-single h2 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+    }
+    @media (max-width: 576px) {
+      .cta-single h2 {
+        font-size: 1.8rem !important;
+      }
+      .btn-visit-shop {
+        padding: 12px 32px;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <p>Redirecting to the landing page...</p>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar navbar-expand-lg navbar-transparent fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-boombox"></i> Billy's Electronics
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" 
+              aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto gap-2 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO (Landing + Contact) ========== -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="hero-title fade-up">
+            YOUR ONE-STOP SHOP <br>
+            <span class="highlight">FOR VIDEOKE &amp; ELECTRONICS</span>
+          </h1>
+          <p class="hero-desc fade-up delay-1">
+            Quality videoke machines, speakers, microphones, amplifiers, and electronics for home, business and events.
+          </p>
+          <div class="btn-group-hero fade-up delay-2">
+            <a href="shop.html" class="btn btn-primary-custom">Visit Shop</a>
+            <a href="#contact" class="btn btn-outline-light-custom">Contact Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glassmorphism contact cards (exactly as requested) -->
+      <div class="row g-4 mt-5 pt-4 fade-up delay-3" id="contact">
+        <div class="col-sm-6 col-lg-3">
+          <div class="glass-card">
+            <div class="card-icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div class="card-title">📍 Address</div>
+            <div class="card-text">
+              618E Estero Cegado St.,<br>Quiapo, Manila, 1001 Metro Manila<br><br>
+              <strong>Phone:</strong> <a href="tel:+639273477242" class="text-light text-decoration-none">0927 3477 242</a><br>
+              <strong>OFW:</strong> <a href="tel:+639209401788" class="text-light text-decoration-none">0920 9401 788</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="glass-card">
+            <div class="card-icon"><i class="bi bi-tiktok"></i></div>
+            <div class="card-title">🎵 TikTok</div>
+            <div class="card-text">
+              <a href="https://www.tiktok.com/@sfaadn?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">@sfaadn</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="glass-card">
+            <div class="card-icon"><i class="bi bi-facebook"></i></div>
+            <div class="card-title">📘 Facebook</div>
+            <div class="card-text">
+              <a href="https://www.facebook.com/Kavideoke.ni.KuyaAL" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">Kavideoke Ni KuyaAl</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="glass-card">
+            <div class="card-icon"><i class="bi bi-facebook"></i></div>
+            <div class="card-title">📘 Facebook</div>
+            <div class="card-text">
+              <a href="https://www.facebook.com/Billys.Electronics" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">Billy's Electronics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- floating scroll indicator -->
+    <div class="scroll-indicator">
+      <i class="bi bi-chevron-down"></i>
+      Scroll Down
+    </div>
+  </section>
+
+  <!-- ========== ABOUT PREVIEW (Why choose) ========== -->
+  <section class="py-5" id="about" style="background: white;">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Why Choose Billy's Electronics?</h2>
+        <p class="section-subtitle">Premium quality, expert support, and trusted by thousands.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="bi bi-mic-fill"></i></div>
+            <h5>🎤 Videoke Systems</h5>
+            <p class="text-muted">Professional videoke machines for home and business.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="bi bi-speaker-fill"></i></div>
+            <h5>🔊 Speakers</h5>
+            <p class="text-muted">High-quality active and passive speakers.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="bi bi-earbuds"></i></div>
+            <h5>🎙 Microphones</h5>
+            <p class="text-muted">Wireless and wired microphones.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="bi bi-tools"></i></div>
+            <h5>🛠 Installation</h5>
+            <p class="text-muted">Professional installation and after-sales support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SINGLE CTA: VISIT SHOP (replaces old CTA) ========== -->
+  <section class="cta-single">
+    <div class="container">
+      <h2>Explore our collection</h2>
+      <a href="shop.html" class="btn-visit-shop">Visit Shop</a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer-dark">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h6 class="mb-3"><i class="bi bi-boombox me-2" style="color:var(--secondary);"></i>Billy's Electronics</h6>
+          <address>618E Estero Cegado St.<br>Quiapo, Manila<br>1001 Metro Manila</address>
+        </div>
+        <div class="col-md-4">
+          <h6>Social</h6>
+          <ul class="list-unstyled">
+            <li><a href="https://www.tiktok.com/@sfaadn?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer"><i class="bi bi-tiktok me-2"></i>@sfaadn</a></li>
+            <li><a href="https://www.facebook.com/Kavideoke.ni.KuyaAL" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook me-2"></i>Kavideoke Ni KuyaAl</a></li>
+            <li><a href="https://www.facebook.com/Billys.Electronics" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook me-2"></i>Billy's Electronics</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6>Quick</h6>
+          <ul class="list-unstyled">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider mt-4">
+      <div class="text-center pt-2">
+        <small>© 2026 Billy's Electronics. All Rights Reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- navbar scroll effect -->
+  <script>
+    (function() {
+      const nav = document.getElementById('mainNav');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          nav.classList.add('navbar-scrolled');
+          nav.classList.remove('navbar-transparent');
+        } else {
+          nav.classList.remove('navbar-scrolled');
+          nav.classList.add('navbar-transparent');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
