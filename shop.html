@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billy's Electronics · Shop</title>
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    /* ─── base ─── */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f7fb;
+      color: #1a1a1a;
+    }
+    .topbar {
+      background: #0A4DBF;
+      color: #fff;
+      padding: 10px 0;
+    }
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .topbar a:hover {
+      color: #FFC107;
+    }
+
+    .search-box {
+      max-width: 640px;
+      margin: 18px auto;
+    }
+    .search-box .input-group-text {
+      background: #fff;
+      border-right: 0;
+    }
+    .search-box .form-control {
+      border-left: 0;
+    }
+    .search-box .form-control:focus {
+      box-shadow: none;
+      border-color: #ced4da;
+    }
+
+    /* ─── product card ─── */
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.4rem 0.8rem;
+      border: 1px solid #e6eefc;
+      transition: box-shadow 0.25s, transform 0.2s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 32px rgba(10, 77, 191, 0.12);
+      border-color: #b8ceec;
+      transform: translateY(-4px);
+    }
+    .product-card img {
+      max-width: 180px;
+      height: 140px;
+      object-fit: contain;
+      margin: 0 auto 0.8rem;
+      display: block;
+    }
+    .badge-id {
+      font-size: 0.65rem;
+      background: #eef4fe;
+      color: #0A4DBF;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.1rem;
+      color: #0f2a4a;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: #6c7a8d;
+      margin-bottom: 0.6rem;
+    }
+    .price {
+      color: #0A4DBF;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .view-btn {
+      background: #0A4DBF;
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.25rem 1.2rem;
+      font-size: 0.8rem;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+      font-weight: 500;
+    }
+    .view-btn:hover {
+      background: #083b94;
+      color: #fff;
+      transform: scale(1.04);
+    }
+
+    /* ─── filter tabs ─── */
+    .tab-filters .btn {
+      border-radius: 40px;
+      padding: 0.35rem 1.6rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .tab-filters .btn-outline-secondary {
+      border-color: #d0dbe8;
+      color: #1e2a3a;
+      background: #fff;
+    }
+    .tab-filters .btn-outline-secondary:hover,
+    .tab-filters .btn-outline-secondary.active {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+    .tab-filters .btn-primary {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+    }
+
+    /* micro‑filter (wired/wireless) */
+    .micro-filter-group .btn {
+      border-radius: 30px;
+      padding: 0.2rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .micro-filter-group .btn-outline-info {
+      border-color: #b8ceec;
+      color: #1f3a5f;
+      background: #fff;
+    }
+    .micro-filter-group .btn-outline-info.active,
+    .micro-filter-group .btn-outline-info:hover {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+
+    .section-header {
+      border-bottom: 2px solid #dce5f0;
+      padding-bottom: 0.4rem;
+      margin: 2rem 0 1.2rem 0;
+    }
+    .section-header h5 {
+      font-weight: 700;
+      color: #0f2a4a;
+    }
+    .badge-solar {
+      background: #f1b24a;
+      color: #1f2a1a;
+      font-weight: 600;
+      margin-left: 0.6rem;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      vertical-align: middle;
+    }
+    .item-count {
+      color: #3b4b62;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .form-select-sm {
+      border-radius: 30px;
+      padding: 0.2rem 2rem 0.2rem 1rem;
+      font-weight: 500;
+    }
+
+    .category-section {
+      transition: opacity 0.2s;
+    }
+    .category-section.d-none {
+      display: none !important;
+    }
+
+    /* ─── contact info card ─── */
+    .contact-info-card {
+      background: linear-gradient(135deg, #0A4DBF 0%, #083b94 100%);
+      border-radius: 24px;
+      padding: 2rem 2rem 1.8rem;
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(10, 77, 191, 0.2);
+      margin-top: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .contact-info-card h4 {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    .contact-info-card .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .contact-info-card .contact-item:last-child {
+      border-bottom: 0;
+    }
+    .contact-info-card .contact-item i {
+      font-size: 1.4rem;
+      color: #FFC107;
+      width: 28px;
+      text-align: center;
+    }
+    .contact-info-card .contact-item .label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      opacity: 0.8;
+      min-width: 80px;
+    }
+    .contact-info-card .contact-item .value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .contact-info-card .contact-item .value a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-info-card .contact-item .value a:hover {
+      color: #FFC107;
+    }
+    .contact-info-card .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .contact-info-card .social-icons a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.8rem;
+      transition: color 0.2s, transform 0.15s;
+    }
+    .contact-info-card .social-icons a:hover {
+      color: #FFC107;
+      transform: translateY(-2px);
+    }
+
+    /* ─── modal ─── */
+    .modal-product-img {
+      max-height: 260px;
+      object-fit: contain;
+      width: 100%;
+    }
+    .fb-order-btn {
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fb-order-btn:hover {
+      background: #0d65d9;
+      color: #fff;
+      transform: scale(1.02);
+    }
+    .order-note {
+      background: #f0f7ff;
+      border-left: 4px solid #1877f2;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+    }
+    .order-note i {
+      color: #1877f2;
+    }
+
+    /* ─── footer ─── */
+    .footer-dark {
+      background: #0b0e1a;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 2.5rem 0 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-dark h6 {
+      color: #fff;
+      font-weight: 600;
+    }
+    .footer-dark a {
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .footer-dark a:hover {
+      color: #FFC107;
+    }
+    .footer-divider {
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ─── responsive ─── */
+    @media (max-width: 576px) {
+      .product-card img {
+        height: 120px;
+      }
+      .contact-info-card {
+        padding: 1.5rem;
+      }
+      .contact-info-card .contact-item .label {
+        min-width: 60px;
+        font-size: 0.75rem;
+      }
+      .contact-info-card .contact-item .value {
+        font-size: 0.85rem;
+      }
+      .section-header h5 {
+        font-size: 1.1rem;
+      }
+      .tab-filters .btn {
+        padding: 0.25rem 1rem;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOPBAR ===== -->
+  <nav class="topbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <a href="LandingPage.html" class="d-flex align-items-center">
+          <i class="bi bi-boombox-fill me-2" style="font-size:1.3rem;"></i>
+          <strong class="mb-0">BILLY'S ELECTRONICS</strong>
+        </a>
+      </div>
+      <div>
+        <a href="LandingPage.html" class="me-3">Home</a>
+        <a href="#contactInfo">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <div class="container py-4">
+
+    <!-- search -->
+    <div class="search-box">
+      <div class="input-group">
+        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+        <input class="form-control" placeholder="Search for items..." aria-label="Search" id="searchInput" />
+        <button class="btn btn-outline-secondary" id="searchBtn">Search</button>
+      </div>
+    </div>
+
+    <!-- toolbar -->
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+      <span class="item-count"><i class="bi bi-grid-3x3-gap-fill me-1"></i> ITEMS (<span id="itemCount">28</span>)</span>
+      <div>
+        <select class="form-select form-select-sm" id="sortSelect">
+          <option value="default">Price: ⇅</option>
+          <option value="low">Low to High</option>
+          <option value="high">High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ===== MAIN FILTER TABS ===== -->
+    <div class="mb-4">
+      <div class="btn-group tab-filters flex-wrap" role="group" id="filterGroup">
+        <button class="btn btn-primary active" data-filter="all">All Items</button>
+        <button class="btn btn-outline-secondary" data-filter="videoke">Videoke</button>
+        <button class="btn btn-outline-secondary" data-filter="microphone">Microphone</button>
+        <button class="btn btn-outline-secondary" data-filter="speaker">Loud Speaker</button>
+        <button class="btn btn-outline-secondary" data-filter="solar">Solar</button>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  VIDEOKE                                                    -->
+    <!-- ========================================================== -->
+    <div class="category-section" data-category="videoke">
+      <div class="section-header d-flex align-items-center">
+        <h5><i class="bi bi-mic-fill me-2" style="color:#0A4DBF;"></i>Videoke</h5>
+        <span class="badge bg-light text-dark ms-2">4 items</span>
+      </div>
+      <div class="row g-4 mb-4 product-grid" data-section="videoke">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="5200" data-id="VK-1001" data-name="Videoke Pro" data-desc="All-in-one karaoke machine with dual mics &amp; LED display" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎤+Videoke+Pro">
+          <div class="product-card text-center">
+            <span class="badge-id">VK-1001</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎤+Videoke" alt="Videoke Pro" />
+            <div class="product-title">Videoke Pro</div>
+            <div class="product-desc">All-in-one karaoke</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="3850" data-id="VK-1002" data-name="Videoke Mini" data-desc="Portable Bluetooth videoke with 2 wireless mics" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎶+Videoke+Mini">
+          <div class="product-card text-center">
+            <span class="badge-id">VK-1002</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎶+Portable" alt="Videoke Mini" />
+            <div class="product-title">Videoke Mini</div>
+            <div class="product-desc">Bluetooth + 2 mics</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="8900" data-id="VK-1003" data-name="Videoke Smart" data-desc="Smart touch screen videoke with WiFi &amp; karaoke app" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=📺+Videoke+Smart">
+          <div class="product-card text-center">
+            <span class="badge-id">VK-1003</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=📺+Smart" alt="Videoke Smart" />
+            <div class="product-title">Videoke Smart</div>
+            <div class="product-desc">Touch screen, WiFi</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="4450" data-id="VK-1004" data-name="Videoke Classic" data-desc="Classic videoke with LED display and dual mic inputs" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎵+Videoke+Classic">
+          <div class="product-card text-center">
+            <span class="badge-id">VK-1004</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎵+Classic" alt="Videoke Classic" />
+            <div class="product-title">Videoke Classic</div>
+            <div class="product-desc">Dual mic, LED display</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  MICROPHONE  (with Wired / Wireless sub‑filter)            -->
+    <!-- ========================================================== -->
+    <div class="category-section" data-category="microphone">
+      <div class="section-header d-flex align-items-center flex-wrap">
+        <h5 class="me-3"><i class="bi bi-mic me-2" style="color:#0A4DBF;"></i>Microphone</h5>
+        <span class="badge bg-light text-dark me-3">4 items</span>
+        <!-- wired / wireless sub-filter -->
+        <div class="btn-group micro-filter-group" role="group" id="microFilterGroup">
+          <button class="btn btn-outline-info active" data-mfilter="all">All</button>
+          <button class="btn btn-outline-info" data-mfilter="wired">Wired</button>
+          <button class="btn btn-outline-info" data-mfilter="wireless">Wireless</button>
+        </div>
+      </div>
+      <div class="row g-4 mb-4 product-grid" data-section="microphone">
+        <!-- Wired -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="650" data-id="MIC-2001" data-name="Wired Mic Pro" data-desc="Dynamic XLR wired microphone for professional use" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎙️+Wired+Mic+Pro" data-mictype="wired">
+          <div class="product-card text-center">
+            <span class="badge-id">MIC-2001</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎙️+Wired" alt="Wired Mic" />
+            <div class="product-title">Wired Mic Pro</div>
+            <div class="product-desc">XLR, dynamic</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <!-- Wireless -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1850" data-id="MIC-2002" data-name="Wireless Handheld" data-desc="UHF dual-channel wireless handheld microphone" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=📡+Wireless+Handheld" data-mictype="wireless">
+          <div class="product-card text-center">
+            <span class="badge-id">MIC-2002</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=📡+Wireless" alt="Wireless handheld" />
+            <div class="product-title">Wireless Handheld</div>
+            <div class="product-desc">UHF, dual channel</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <!-- Wireless headset -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="2200" data-id="MIC-2003" data-name="Wireless Headset" data-desc="Comfort-fit wireless headset microphone 2.4GHz" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎧+Wireless+Headset" data-mictype="wireless">
+          <div class="product-card text-center">
+            <span class="badge-id">MIC-2003</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎧+Headset" alt="Wireless headset" />
+            <div class="product-title">Wireless Headset</div>
+            <div class="product-desc">Comfort fit, 2.4GHz</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <!-- Wired studio -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1250" data-id="MIC-2004" data-name="Wired Studio Mic" data-desc="Condenser studio microphone with shock mount" data-img="https://placehold.co/400x300/e6eefc/0A4DBF?text=🎤+Studio+Mic" data-mictype="wired">
+          <div class="product-card text-center">
+            <span class="badge-id">MIC-2004</span>
+            <img src="https://placehold.co/200x160/e6eefc/0A4DBF?text=🎤+Studio" alt="Studio mic" />
+            <div class="product-title">Wired Studio Mic</div>
+            <div class="product-desc">Condenser, shock mount</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  LOUD SPEAKER                                               -->
+    <!-- ========================================================== -->
+    <div class="category-section" data-category="speaker">
+      <div class="section-header d-flex align-items-center">
+        <h5><i class="bi bi-speaker-fill me-2" style="color:#0A4DBF;"></i>Loud Speaker</h5>
+        <span class="badge bg-light text-dark ms-2">7 items</span>
+      </div>
+      <div class="row g-4 mb-4 product-grid" data-section="speaker">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1709" data-name="BTS-1709" data-desc="Dual 6.5-inch speaker system with wireless microphone." data-img="LoudSpeaker/BTS-1709.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1709</span>
+            <img src="LoudSpeaker/BTS-1709.png" alt="BTS-1709 loud speaker" />
+            <div class="product-title">BTS-1709</div>
+            <div class="product-desc">Dual 6.5 Inch • Wireless Mic</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1166" data-name="BTS-1166" data-desc="6.5-inch loud speaker with 1800mAh battery and wireless microphone." data-img="LoudSpeaker/BTS-1166.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1166</span>
+            <img src="LoudSpeaker/BTS-1166.png" alt="BTS-1166 loud speaker" />
+            <div class="product-title">BTS-1166</div>
+            <div class="product-desc">6.5 Inch • 1800mAh • Wireless Mic</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="KTS-2000" data-name="KTS-2000" data-desc="6.5-inch portable speaker with built-in mic and rechargeable 20W power." data-img="LoudSpeaker/KTS-2000.png">
+          <div class="product-card text-center">
+            <span class="badge-id">KTS-2000</span>
+            <img src="LoudSpeaker/KTS-2000.png" alt="KTS-2000 loud speaker" />
+            <div class="product-title">KTS-2000</div>
+            <div class="product-desc">6.5 Inch • With Mic • 20W Rechargeable</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1783" data-name="BTS-1783" data-desc="8-inch loud speaker with microphone and rechargeable 30W + 15W power output." data-img="LoudSpeaker/BTS-1783.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1783</span>
+            <img src="LoudSpeaker/BTS-1783.png" alt="BTS-1783 loud speaker" />
+            <div class="product-title">BTS-1783</div>
+            <div class="product-desc">8 Inch • With Mic • 30W + 15W</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1739" data-name="BTS-1739" data-desc="8-inch loud speaker with 1 wireless microphone and 40W power output." data-img="LoudSpeaker/BTS-1739.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1739</span>
+            <img src="LoudSpeaker/BTS-1739.png" alt="BTS-1739 loud speaker" />
+            <div class="product-title">BTS-1739</div>
+            <div class="product-desc">8 Inch • 1 Wireless Mic • 40W</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1740" data-name="BTS-1740" data-desc="8-inch loud speaker with 2 microphones, one rechargeable and one wired." data-img="LoudSpeaker/BTS-1740.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1740</span>
+            <img src="LoudSpeaker/BTS-1740.png" alt="BTS-1740 loud speaker" />
+            <div class="product-title">BTS-1740</div>
+            <div class="product-desc">8 Inch • 2 Mics • 1 Rechargeable / 1 Wired</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="JBLPartyBox130" data-name="JBL PartyBox 130" data-desc="Dual 5.25-inch woofers, dual 1-inch tweeters, 200W RMS, Bluetooth, Auracast, and IPX4 splashproof build." data-img="LoudSpeaker/PartyBox-130.jpg">
+          <div class="product-card text-center">
+            <span class="badge-id">JBL PartyBox 130</span>
+            <img src="LoudSpeaker/PartyBox-130.jpg" alt="JBL PartyBox 130 loud speaker" />
+            <div class="product-title">JBL PartyBox 130</div>
+            <div class="product-desc">Dual 5.25" Woofers • 200W RMS</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  SOLAR                                                      -->
+    <!-- ========================================================== -->
+    <div class="category-section" data-category="solar">
+      <div class="section-header d-flex align-items-center">
+        <h5><i class="bi bi-sun-fill me-2" style="color:#f1b24a;"></i>Solar</h5>
+        <span class="badge-solar">☀️ green energy</span>
+        <span class="badge bg-light text-dark ms-2">4 items</span>
+      </div>
+      <div class="row g-4 mb-4 product-grid" data-section="solar">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="3200" data-id="SOL-4001" data-name="100W Mono Panel" data-desc="High-efficiency monocrystalline solar panel" data-img="https://placehold.co/400x300/e6eefc/f1b24a?text=☀️+Solar+Panel">
+          <div class="product-card text-center">
+            <span class="badge-id">SOL-4001</span>
+            <img src="https://placehold.co/200x160/e6eefc/f1b24a?text=☀️+Panel" alt="Solar panel" />
+            <div class="product-title">100W Mono Panel</div>
+            <div class="product-desc">High efficiency</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="12500" data-id="SOL-4002" data-name="Power Station 300W" data-desc="Portable power station with MPPT charge controller" data-img="https://placehold.co/400x300/e6eefc/f1b24a?text=🔋+Power+Station">
+          <div class="product-card text-center">
+            <span class="badge-id">SOL-4002</span>
+            <img src="https://placehold.co/200x160/e6eefc/f1b24a?text=🔋+Generator" alt="Solar generator" />
+            <div class="product-title">Power Station 300W</div>
+            <div class="product-desc">AC/DC, MPPT</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1850" data-id="SOL-4003" data-name="Solar Flood Light" data-desc="50W solar flood light with remote control" data-img="https://placehold.co/400x300/e6eefc/f1b24a?text=💡+Solar+Flood+Light">
+          <div class="product-card text-center">
+            <span class="badge-id">SOL-4003</span>
+            <img src="https://placehold.co/200x160/e6eefc/f1b24a?text=💡+Light" alt="Solar light" />
+            <div class="product-title">Solar Flood Light</div>
+            <div class="product-desc">50W, remote</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1200" data-id="SOL-4004" data-name="Charge Controller" data-desc="40A PWM solar charge controller" data-img="https://placehold.co/400x300/e6eefc/f1b24a?text=⚡+Charge+Controller">
+          <div class="product-card text-center">
+            <span class="badge-id">SOL-4004</span>
+            <img src="https://placehold.co/200x160/e6eefc/f1b24a?text=⚡+Controller" alt="Charge controller" />
+            <div class="product-title">Charge Controller</div>
+            <div class="product-desc">40A, PWM</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  CONTACT INFO (updated with your details)                   -->
+    <!-- ========================================================== -->
+    <div id="contactInfo" class="contact-info-card">
+      <div class="row align-items-center">
+        <div class="col-lg-5 mb-3 mb-lg-0">
+          <h4><i class="bi bi-headset me-2"></i> Get in Touch</h4>
+          <p style="opacity:0.8; font-size:0.95rem;">We're here to help you find the perfect electronics for your needs.</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Billys.Electronics" target="_blank" aria-label="Facebook Billy's"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/Kavideoke.ni.KuyaAL" target="_blank" aria-label="Facebook Kuya AL"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.tiktok.com/@sfaadn" target="_blank" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+            <a href="tel:+639273477242" aria-label="Phone"><i class="bi bi-telephone-fill"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="contact-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span class="label">Address</span>
+            <span class="value">618E Estero Cegado St., Quiapo, Manila, 1001</span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <span class="label">Contact</span>
+            <span class="value"><a href="tel:+639273477242">0927 3477 242</a></span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <span class="label">OFW Contact</span>
+            <span class="value"><a href="tel:+639209401788">0920 9401 788</a></span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-facebook"></i>
+            <span class="label">Facebook</span>
+            <span class="value"><a href="https://www.facebook.com/Billys.Electronics" target="_blank">Billy's Electronics</a></span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-facebook"></i>
+            <span class="label">Facebook</span>
+            <span class="value"><a href="https://www.facebook.com/Kavideoke.ni.KuyaAL" target="_blank">Kavideoke ni Kuya AL</a></span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-tiktok"></i>
+            <span class="label">TikTok</span>
+            <span class="value"><a href="https://www.tiktok.com/@sfaadn" target="_blank">@sfaadn</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /container -->
+
+  <!-- ========================================================== -->
+  <!--  PRODUCT DETAIL MODAL                                       -->
+  <!-- ========================================================== -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="modalProductName">Product Name</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-5 text-center">
+              <img src="" alt="Product" class="modal-product-img" id="modalProductImg" />
+              <div class="mt-2">
+                <span class="badge bg-light text-dark border" id="modalProductId">ITEM-000</span>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <h6 class="text-muted mb-1">Description</h6>
+              <p id="modalProductDesc" class="mb-3">Product description goes here.</p>
+              <div class="order-note mb-3">
+                <i class="bi bi-tag-fill me-2"></i>
+                <strong>Price:</strong> Please contact us for the current price.
+              </div>
+
+              <div class="order-note mt-3">
+                <i class="bi bi-messenger fs-5 me-2"></i>
+                <strong>How to Order:</strong>
+                <ul class="mb-0 mt-1 ps-3">
+                  <li>Click the <strong>"Order via Facebook"</strong> button below.</li>
+                  <li>Send a <strong>screenshot</strong> of this item to our Messenger.</li>
+                  <li>Our staff will confirm your order and payment details.</li>
+                  <li class="text-danger fw-semibold mt-1">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                    Orders &amp; payments are processed <strong>ONLY through Facebook Messenger</strong>.
+                  </li>
+                </ul>
+              </div>
+
+              <!-- in-body Order button removed; use footer button -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 d-flex justify-content-end align-items-center">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <span class="text-muted mx-2">|</span>
+          <a href="https://www.facebook.com/Billys.Electronics" target="_blank" class="fb-order-btn">
+            <i class="bi bi-facebook fs-5"></i> Order via Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-dark">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h6 class="mb-3"><i class="bi bi-boombox me-2" style="color:#FFC107;"></i>Billy's Electronics</h6>
+          <p style="font-size:0.9rem;">Quality videoke, sound systems, and electronics since 2020.</p>
+        </div>
+        <div class="col-md-4">
+          <h6>Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a href="LandingPage.html">Home</a></li>
+            <li><a href="#contactInfo">Contact</a></li>
+            <li><a href="#">Shop</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6>Follow Us</h6>
+          <ul class="list-unstyled">
+            <li><a href="https://www.facebook.com/Kavideoke.ni.KuyaAL" target="_blank"><i class="bi bi-facebook me-2"></i>Kavideoke ni Kuya AL</a></li>
+            <li><a href="https://www.facebook.com/Billys.Electronics" target="_blank"><i class="bi bi-facebook me-2"></i>Billy's Electronics</a></li>
+            <li><a href="https://www.tiktok.com/@sfaadn" target="_blank"><i class="bi bi-tiktok me-2"></i>@sfaadn</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider mt-4">
+      <div class="text-center pt-2">
+        <small>© 2026 Billy's Electronics. All Rights Reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ===== FILTER + SORT + SEARCH + MICRO-FILTER + MODAL ===== -->
+  <script>
+    (function() {
+      // ----- DOM refs -----
+      const filterButtons = document.querySelectorAll('#filterGroup .btn');
+      const categorySections = document.querySelectorAll('.category-section');
+      const allProductItems = document.querySelectorAll('.product-item');
+      const itemCountSpan = document.getElementById('itemCount');
+      const sortSelect = document.getElementById('sortSelect');
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+
+      // micro‑filter
+      const microFilterBtns = document.querySelectorAll('#microFilterGroup .btn');
+      let activeMicroFilter = 'all';
+
+      // modal
+      const modalProductName = document.getElementById('modalProductName');
+      const modalProductId = document.getElementById('modalProductId');
+      const modalProductDesc = document.getElementById('modalProductDesc');
+      const modalProductPrice = document.getElementById('modalProductPrice');
+      const modalProductImg = document.getElementById('modalProductImg');
+
+      let activeFilter = 'all';
+
+      // ----- helpers -----
+      function updateItemCount() {
+        const visible = document.querySelectorAll('.product-item:not(.d-none)');
+        itemCountSpan.textContent = visible.length;
+      }
+
+      // ----- apply micro‑filter (wired/wireless) -----
+      function applyMicroFilter(mfilter) {
+        activeMicroFilter = mfilter;
+        microFilterBtns.forEach(btn => {
+          const val = btn.dataset.mfilter;
+          if (val === mfilter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        const micSection = document.querySelector('.category-section[data-category="microphone"]');
+        if (!micSection) return;
+        const micItems = micSection.querySelectorAll('.product-item');
+        micItems.forEach(item => {
+          const type = item.dataset.mictype || 'all';
+          const section = item.closest('.category-section');
+          if (section && section.classList.contains('d-none')) {
+            item.classList.add('d-none');
+            return;
+          }
+          if (activeFilter !== 'all' && activeFilter !== 'microphone') {
+            item.classList.add('d-none');
+            return;
+          }
+          if (mfilter === 'all' || type === mfilter) {
+            item.classList.remove('d-none');
+          } else {
+            item.classList.add('d-none');
+          }
+        });
+        if (searchInput.value.trim() !== '') {
+          applySearch(searchInput.value.trim());
+        }
+        applySort(sortSelect.value);
+      }
+
+      // ----- main filter -----
+      function applyFilter(category) {
+        activeFilter = category;
+        categorySections.forEach(section => {
+          const sectionCat = section.dataset.category;
+          if (category === 'all' || sectionCat === category) {
+            section.classList.remove('d-none');
+          } else {
+            section.classList.add('d-none');
+          }
+        });
+
+        filterButtons.forEach(btn => {
+          const filterVal = btn.dataset.filter;
+          if (filterVal === category) {
+            btn.classList.remove('btn-outline-secondary');
+            btn.classList.add('btn-primary', 'active');
+          } else {
+            btn.classList.remove('btn-primary', 'active');
+            btn.classList.add('btn-outline-secondary');
+          }
+        });
+
+        if (category === 'all' || category === 'microphone') {
+          applyMicroFilter(activeMicroFilter);
+        } else {
+          const micSection = document.querySelector('.category-section[data-category="microphone"]');
+          if (micSection && micSection.classList.contains('d-none')) {
+            micSection.querySelectorAll('.product-item').forEach(item => item.classList.add('d-none'));
+          }
+        }
+
+        if (searchInput.value.trim() !== '') {
+          applySearch(searchInput.value.trim());
+        } else {
+          const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+          visibleSections.forEach(section => {
+            const items = section.querySelectorAll('.product-item');
+            items.forEach(item => {
+              if (section.dataset.category === 'microphone') {
+                const type = item.dataset.mictype || 'all';
+                if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
+              } else {
+                item.classList.remove('d-none');
+              }
+            });
+          });
+          applySort(sortSelect.value);
+        }
+        applySort(sortSelect.value);
+      }
+
+      // ----- search -----
+      function applySearch(term) {
+        const lower = term.toLowerCase();
+        const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+        allProductItems.forEach(item => {
+          const parentSection = item.closest('.category-section');
+          if (parentSection && parentSection.classList.contains('d-none')) {
+            item.classList.add('d-none');
+            return;
+          }
+          const title = item.querySelector('.product-title')?.textContent?.toLowerCase() || '';
+          const desc = item.querySelector('.product-desc')?.textContent?.toLowerCase() || '';
+          const id = item.querySelector('.badge-id')?.textContent?.toLowerCase() || '';
+          const match = title.includes(lower) || desc.includes(lower) || id.includes(lower);
+          if (lower === '') {
+            if (parentSection && parentSection.dataset.category === 'microphone') {
+              const type = item.dataset.mictype || 'all';
+              if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                item.classList.remove('d-none');
+              } else {
+                item.classList.add('d-none');
+              }
+            } else {
+              item.classList.remove('d-none');
+            }
+          } else {
+            if (!match) {
+              item.classList.add('d-none');
+            } else {
+              if (parentSection && parentSection.dataset.category === 'microphone') {
+                const type = item.dataset.mictype || 'all';
+                if (activeMicroFilter !== 'all' && type !== activeMicroFilter) {
+                  item.classList.add('d-none');
+                } else {
+                  item.classList.remove('d-none');
+                }
+              } else {
+                item.classList.remove('d-none');
+              }
+            }
+          }
+        });
+        applySort(sortSelect.value);
+      }
+
+      // ----- sort -----
+      function applySort(sortType) {
+        const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+        visibleSections.forEach(section => {
+          const grid = section.querySelector('.product-grid');
+          if (!grid) return;
+          const items = Array.from(grid.querySelectorAll('.product-item:not(.d-none)'));
+          if (items.length === 0) return;
+          items.forEach(item => item.remove());
+          if (sortType === 'low') {
+            items.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+          } else if (sortType === 'high') {
+            items.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+          } else {
+            items.sort((a, b) => parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex));
+          }
+          items.forEach(item => grid.appendChild(item));
+        });
+        updateItemCount();
+      }
+
+      // ----- store original index -----
+      function storeOriginalIndices() {
+        allProductItems.forEach((item, index) => {
+          item.dataset.originalIndex = index;
+        });
+      }
+      storeOriginalIndices();
+
+      // ----- event: main filter buttons -----
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const filter = this.dataset.filter;
+          applyFilter(filter);
+          if (searchInput.value.trim() !== '') {
+            applySearch(searchInput.value.trim());
+          } else {
+            const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+            visibleSections.forEach(section => {
+              const items = section.querySelectorAll('.product-item');
+              items.forEach(item => {
+                if (section.dataset.category === 'microphone') {
+                  const type = item.dataset.mictype || 'all';
+                  if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                    item.classList.remove('d-none');
+                  } else {
+                    item.classList.add('d-none');
+                  }
+                } else {
+                  item.classList.remove('d-none');
+                }
+              });
+            });
+            updateItemCount();
+          }
+          applySort(sortSelect.value);
+        });
+      });
+
+      // ----- event: micro‑filter buttons -----
+      microFilterBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const mfilter = this.dataset.mfilter;
+          applyMicroFilter(mfilter);
+        });
+      });
+
+      // ----- event: sort -----
+      sortSelect.addEventListener('change', function() {
+        applySort(this.value);
+      });
+
+      // ----- event: search -----
+      function handleSearch() {
+        const term = searchInput.value.trim();
+        if (term === '') {
+          const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+          visibleSections.forEach(section => {
+            const items = section.querySelectorAll('.product-item');
+            items.forEach(item => {
+              if (section.dataset.category === 'microphone') {
+                const type = item.dataset.mictype || 'all';
+                if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
+              } else {
+                item.classList.remove('d-none');
+              }
+            });
+          });
+          applySort(sortSelect.value);
+        } else {
+          applySearch(term);
+        }
+      }
+
+      searchBtn.addEventListener('click', handleSearch);
+      searchInput.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') handleSearch();
+      });
+      searchInput.addEventListener('input', function() {
+        if (this.value.trim() === '') {
+          const visibleSections = Array.from(categorySections).filter(s => !s.classList.contains('d-none'));
+          visibleSections.forEach(section => {
+            const items = section.querySelectorAll('.product-item');
+            items.forEach(item => {
+              if (section.dataset.category === 'microphone') {
+                const type = item.dataset.mictype || 'all';
+                if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
+              } else {
+                item.classList.remove('d-none');
+              }
+            });
+          });
+          applySort(sortSelect.value);
+        }
+      });
+
+      // ----- modal: populate -----
+      document.querySelectorAll('.view-detail').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const card = this.closest('.product-item');
+          if (!card) return;
+          modalProductName.textContent = card.dataset.name || 'Product';
+          modalProductId.textContent = card.dataset.id || 'N/A';
+          modalProductDesc.textContent = card.dataset.desc || 'No description available.';
+          const cardImage = card.querySelector('img');
+          const fallbackImage = 'https://placehold.co/400x300/e6eefc/0A4DBF?text=Image+Unavailable';
+          const imageSrc = cardImage?.getAttribute('src') || card.dataset.img || fallbackImage;
+          modalProductImg.src = imageSrc;
+          modalProductImg.alt = card.dataset.name || 'Product';
+          modalProductImg.onerror = function() {
+            this.src = fallbackImage;
+          };
+        });
+      });
+
+      // ----- init -----
+      applyFilter('all');
+      applyMicroFilter('all');
+    })();
+  </script>
+</body>
+</html>
