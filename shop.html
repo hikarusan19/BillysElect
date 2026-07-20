@@ -182,65 +182,7 @@
       display: none !important;
     }
 
-    .category-section[data-category="crown"] .product-grid {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 1rem;
-      padding-bottom: 0.75rem;
-      margin-left: 0;
-      margin-right: 0;
-    }
-    .category-section[data-category="crown"] .product-grid::-webkit-scrollbar {
-      height: 8px;
-    }
-    .category-section[data-category="crown"] .product-grid::-webkit-scrollbar-thumb {
-      background: rgba(10, 77, 191, 0.24);
-      border-radius: 999px;
-    }
-    .category-section[data-category="crown"] .product-grid .product-item {
-      scroll-snap-align: start;
-      flex: 0 0 auto;
-      width: calc((100% - 4rem) / 5);
-      max-width: none;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .slider-controls {
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    .slider-controls .btn {
-      min-width: 44px;
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    @media (max-width: 1200px) {
-      .category-section[data-category="crown"] .product-grid .product-item {
-        width: calc((100% - 3rem) / 4);
-      }
-    }
-    @media (max-width: 992px) {
-      .category-section[data-category="crown"] .product-grid .product-item {
-        width: calc((100% - 2rem) / 3);
-      }
-    }
-    @media (max-width: 768px) {
-      .category-section[data-category="crown"] .product-grid .product-item {
-        width: calc((100% - 1rem) / 2);
-      }
-    }
-    @media (max-width: 576px) {
-      .category-section[data-category="crown"] .product-grid {
-        gap: 0.75rem;
-      }
-      .category-section[data-category="crown"] .product-grid .product-item {
-        width: calc(50% - 0.375rem);
-      }
-    }
+    /* Crown section uses the normal Bootstrap row/column layout, no horizontal slider */
 
     /* ─── contact info card ─── */
     .contact-info-card {
@@ -505,18 +447,18 @@
     <div class="mb-4">
       <div class="btn-group tab-filters flex-wrap" role="group" id="filterGroup">
         <button class="btn btn-primary active" data-filter="all">All Items</button>
-        <button class="btn btn-outline-secondary" data-filter="videoke">Videoke</button>
-        <button class="btn btn-outline-secondary" data-filter="microphone">Microphone</button>
+        
         <button class="btn btn-outline-secondary" data-filter="speaker">Loud Speaker</button>
         <button class="btn btn-outline-secondary" data-filter="crown">Crown - Power Amplifier</button>
-        <button class="btn btn-outline-secondary" data-filter="crown-mixing-console">Crown - Mixing Console</button>
+        <button class="btn btn-outline-secondary" data-filter="sakura-amplifier">Sakura - Amplifier</button>
       </div>
     </div>
 
     <!-- ========================================================== -->
     <!--  VIDEOKE                                                    -->
     <!-- ========================================================== -->
-    <div class="category-section" data-category="videoke">
+     
+    <!-- <div class="category-section" data-category="videoke">
       <div class="section-header d-flex align-items-center">
         <h5><i class="bi bi-mic-fill me-2" style="color:#0A4DBF;"></i>Videoke</h5>
         <span class="badge bg-light text-dark ms-2">4 items</span>
@@ -567,73 +509,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- ========================================================== -->
-    <!--  MICROPHONE  (with Wired / Wireless sub‑filter)            -->
-    <!-- ========================================================== -->
-    <div class="category-section" data-category="microphone">
-      <div class="section-header d-flex align-items-center flex-wrap">
-        <h5 class="me-3"><i class="bi bi-mic me-2" style="color:#0A4DBF;"></i>Microphone</h5>
-        <span class="badge bg-light text-dark me-3">4 items</span>
-        <!-- wired / wireless sub-filter -->
-        <div class="btn-group micro-filter-group" role="group" id="microFilterGroup">
-          <button class="btn btn-outline-info active" data-mfilter="all">All</button>
-          <button class="btn btn-outline-info" data-mfilter="wired">Wired</button>
-          <button class="btn btn-outline-info" data-mfilter="wireless">Wireless</button>
-        </div>
-      </div>
-      <div class="row g-4 mb-4 product-grid" data-section="microphone">
-        <!-- Wired -->
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="650" data-id="MIC-2001" data-name="Wired Mic Pro" data-desc="Dynamic XLR wired microphone for professional use" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎙️ Wired%3C/text%3E%3C/svg%3E" data-mictype="wired">
-          <div class="product-card text-center">
-            <span class="badge-id">MIC-2001</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎙️ Wired%3C/text%3E%3C/svg%3E" alt="Wired Mic" />
-            <div class="product-title">Wired Mic Pro</div>
-            <div class="product-desc">XLR, dynamic</div>
-            <div class="d-flex justify-content-end align-items-center mt-auto">
-              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-            </div>
-          </div>
-        </div>
-        <!-- Wireless -->
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1850" data-id="MIC-2002" data-name="Wireless Handheld" data-desc="UHF dual-channel wireless handheld microphone" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E📡 Wireless%3C/text%3E%3C/svg%3E" data-mictype="wireless">
-          <div class="product-card text-center">
-            <span class="badge-id">MIC-2002</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E📡 Wireless%3C/text%3E%3C/svg%3E" alt="Wireless handheld" />
-            <div class="product-title">Wireless Handheld</div>
-            <div class="product-desc">UHF, dual channel</div>
-            <div class="d-flex justify-content-end align-items-center mt-auto">
-              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-            </div>
-          </div>
-        </div>
-        <!-- Wireless headset -->
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="2200" data-id="MIC-2003" data-name="Wireless Headset" data-desc="Comfort-fit wireless headset microphone 2.4GHz" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎧 Headset%3C/text%3E%3C/svg%3E" data-mictype="wireless">
-          <div class="product-card text-center">
-            <span class="badge-id">MIC-2003</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎧 Headset%3C/text%3E%3C/svg%3E" alt="Wireless headset" />
-            <div class="product-title">Wireless Headset</div>
-            <div class="product-desc">Comfort fit, 2.4GHz</div>
-            <div class="d-flex justify-content-end align-items-center mt-auto">
-              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-            </div>
-          </div>
-        </div>
-        <!-- Wired studio -->
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1250" data-id="MIC-2004" data-name="Wired Studio Mic" data-desc="Condenser studio microphone with shock mount" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎤 Studio%3C/text%3E%3C/svg%3E" data-mictype="wired">
-          <div class="product-card text-center">
-            <span class="badge-id">MIC-2004</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%230A4DBF' text-anchor='middle' dominant-baseline='central'%3E🎤 Studio%3C/text%3E%3C/svg%3E" alt="Studio mic" />
-            <div class="product-title">Wired Studio Mic</div>
-            <div class="product-desc">Condenser, shock mount</div>
-            <div class="d-flex justify-content-end align-items-center mt-auto">
-              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- ========================================================== -->
     <!--  LOUD SPEAKER                                              -->
@@ -1397,9 +1274,709 @@
       </div>
     </div>
 
+  </div>  
+</div>
+<!-- ========================================================== -->
+<!--  SAKURA (AMPLIFIER)                                         -->
+<!-- ========================================================== -->
+<div class="category-section" data-category="sakura-amplifier">
+  <div class="section-header d-flex align-items-center flex-wrap">
+    <h5 class="me-3"><i class="bi bi-broadcast me-2" style="color:#0A4DBF;"></i>Sakura – Amplifier</h5>
+    <span class="badge bg-light text-dark me-3">47 items</span>
+  </div>
+  <div class="row g-4 mb-4 product-grid" data-section="sakura">
+
+    <!-- AV-9000 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-9000" data-name="Sakura AV-9000" data-desc="Max Power: 1800W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD" data-img="./Crown/SAKURA-AMP/AV-9000.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-9000</span>
+        <img src="./Crown/SAKURA-AMP/AV-9000.png" alt="AV-9000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-9000%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-9000</div>
+        <div class="product-desc">1800W • 2Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-8000 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-8000" data-name="Sakura AV-8000" data-desc="Max Power: 1700W x 2, 2 Ch, 3 Mic In, Bluetooth, USB" data-img="./Crown/SAKURA-AMP/AV-8000.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-8000</span>
+        <img src="./Crown/SAKURA-AMP/AV-8000.png" alt="AV-8000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-8000%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-8000</div>
+        <div class="product-desc">1700W • 2Ch • 3 Mic</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-7000 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-7000" data-name="Sakura AV-7000" data-desc="Max Power: 1600W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD" data-img="./Crown/SAKURA-AMP/AV-7000.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-7000</span>
+        <img src="./Crown/SAKURA-AMP/AV-7000.png" alt="AV-7000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-7000%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-7000</div>
+        <div class="product-desc">1600W • 2Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5000 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5000" data-name="Sakura AV-5000" data-desc="Max Power: 1200W x 2, 2 Ch, 2 Mic In, Bluetooth, USB" data-img="./Crown/SAKURA-AMP/AV-7000.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5000</span>
+        <img src="./Crown/SAKURA-AMP/AV-7000.png" alt="AV-5000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5000%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5000</div>
+        <div class="product-desc">1200W • 2Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-4000 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-4000" data-name="Sakura AV-4000" data-desc="Max Power: 1000W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD, Speak-On, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-4000.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-4000</span>
+        <img src="./Crown/SAKURA-AMP/AV-4000.png" alt="AV-4000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-4000%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-4000</div>
+        <div class="product-desc">1000W • 2Ch • Speak-On</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-735 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-735" data-name="Sakura AV-735" data-desc="700W x 2 (8Ω) / 1300W x 2 (4Ω), 2 Ch, 5 Mic In, MP3, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-735.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-735</span>
+        <img src="./Crown/SAKURA-AMP/AV-735.png" alt="AV-735" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-735%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-735</div>
+        <div class="product-desc">700W • 5 Mic • Echo</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-735UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-735UB" data-name="Sakura AV-735UB" data-desc="700W x 2 (8Ω) / 1300W x 2 (4Ω), 5 Mic In, Bluetooth, USB/SD, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-735UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-735UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-735UB.png" alt="AV-735UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-735UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-735UB</div>
+        <div class="product-desc">700W • Bluetooth • USB/SD</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-455UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-455UB" data-name="Sakura AV-455UB" data-desc="Max Power: 140W x 2, 5.1 Ch, 2 Mic In, Bluetooth, USB/SD" data-img="./Crown/SAKURA-AMP/AV-455UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-455UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-455UB.png" alt="AV-455UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-455UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-455UB</div>
+        <div class="product-desc">140W • 5.1Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-466UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-466UB" data-name="Sakura AV-466UB" data-desc="Max Power: 150W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-466UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-466UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-466UB.png" alt="AV-466UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-466UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-466UB</div>
+        <div class="product-desc">150W • 2Ch • FM Tuner</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-477UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-477UB" data-name="Sakura AV-477UB" data-desc="Max Power: 450W x 2, 2.1 Ch, 2 Mic In, Bluetooth, USB/SD, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-477UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-477UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-477UB.png" alt="AV-477UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-477UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-477UB</div>
+        <div class="product-desc">450W • 2.1Ch • FM</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-488UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-488UB" data-name="Sakura AV-488UB" data-desc="Max Power: 550W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD, FM Tuner, Built-in Fan" data-img="./Crown/SAKURA-AMP/AV-488UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-488UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-488UB.png" alt="AV-488UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-488UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-488UB</div>
+        <div class="product-desc">550W • 2Ch • Fan</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-855 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-855" data-name="Sakura AV-855" data-desc="Max Power: 750W x 2, 2 Ch, 5 Mic In, Bluetooth, USB/SD, Coaxial/Optical, Line Out" data-img="./Crown/SAKURA-AMP/AV-855.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-855</span>
+        <img src="./Crown/SAKURA-AMP/AV-855.png" alt="AV-855" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-855%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-855</div>
+        <div class="product-desc">750W • 5 Mic • Coax/Opt</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-866UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-866UB" data-name="Sakura AV-866UB" data-desc="Max Power: 750W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-866UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-866UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-866UB.png" alt="AV-866UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-866UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-866UB</div>
+        <div class="product-desc">750W • 2Ch • FM Tuner</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-993UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-993UB" data-name="Sakura AV-993UB" data-desc="Min 80W / Max 100W x 2, 5 Ch, 2 Mic In, Bluetooth, USB/SD, FM, 2" Fan, 253x239x76mm" data-img="./Crown/SAKURA-AMP/AV-993UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-993UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-993UB.png" alt="AV-993UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-993UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-993UB</div>
+        <div class="product-desc">100W • 5Ch • Compact</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-995 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-995" data-name="Sakura AV-995" data-desc="Max Power: 150W x 2, 2 Mic In, USB/SD, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-995.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-995</span>
+        <img src="./Crown/SAKURA-AMP/AV-995.png" alt="AV-995" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-995%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-995</div>
+        <div class="product-desc">150W • USB/SD • FM</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-733 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-733" data-name="Sakura AV-733" data-desc="Max Power: 450W x 2, 2 Ch, 3 Mic In, MP3, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-733.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-733</span>
+        <img src="./Crown/SAKURA-AMP/AV-733.png" alt="AV-733" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-733%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-733</div>
+        <div class="product-desc">450W • 3 Mic • Echo</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-733US -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-733US" data-name="Sakura AV-733US" data-desc="Max Power: 450W x 2, 3 Mic In, USB/SD, 10-Band EQ, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-733US.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-733US</span>
+        <img src="./Crown/SAKURA-AMP/AV-733US.png" alt="AV-733US" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-733US%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-733US</div>
+        <div class="product-desc">450W • 10-Band EQ</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-733UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-733UB" data-name="Sakura AV-733UB" data-desc="Max Power: 450W x 2, 3 Mic In, Bluetooth, USB/SD, FM, 10-Band EQ, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-733UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-733UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-733UB.png" alt="AV-733UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-733UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-733UB</div>
+        <div class="product-desc">450W • Bluetooth • 10-Band</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5024UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5024UB" data-name="Sakura AV-5024UB" data-desc="Max Power: 600W x 2, 5.1 Ch, 3 Mic In, Bluetooth, USB/SD, Speaker A/B, Tone, Loudness, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-5024UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5024UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-5024UB.png" alt="AV-5024UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5024UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5024UB</div>
+        <div class="product-desc">600W • 5.1Ch • A/B</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-737 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-737" data-name="Sakura AV-737" data-desc="Max Power: 1400W x 2, 2 Ch, 5 Mic In, MP3, Pitch Control, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-737.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-737</span>
+        <img src="./Crown/SAKURA-AMP/AV-737.png" alt="AV-737" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-737%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-737</div>
+        <div class="product-desc">1400W • 5 Mic • Pitch</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-737UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-737UB" data-name="Sakura AV-737UB" data-desc="Max Power: 1400W x 2, 2 Ch, 3 Mic In, Bluetooth, USB/SD, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-737UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-737UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-737UB.png" alt="AV-737UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-737UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-737UB</div>
+        <div class="product-desc">1400W • Bluetooth • Echo</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-757 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-757" data-name="Sakura AV-757" data-desc="Max Power: 1650W x 2, 2 Ch, 1 Mic In, Pitch Control, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-757.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-757</span>
+        <img src="./Crown/SAKURA-AMP/AV-757.png" alt="AV-757" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-757%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-757</div>
+        <div class="product-desc">1650W • Pitch • Echo</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-757UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-757UB" data-name="Sakura AV-757UB" data-desc="Max Power: 1650W x 2, 2 Ch, 5 Mic In, Bluetooth, USB/SD, Pitch, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-757UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-757UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-757UB.png" alt="AV-757UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-757UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-757UB</div>
+        <div class="product-desc">1650W • 5 Mic • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-7UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-7UB" data-name="Sakura AV-7UB" data-desc="Max Power: 850W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/TF, Feedback Reducer, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-7UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-7UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-7UB.png" alt="AV-7UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-7UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-7UB</div>
+        <div class="product-desc">850W • Feedback Reducer</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5UB" data-name="Sakura AV-5UB" data-desc="Max Power: 680W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/TF, Feedback Reducer, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-5UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-5UB.png" alt="AV-5UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5UB</div>
+        <div class="product-desc">680W • Feedback Reducer</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-3UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-3UB" data-name="Sakura AV-3UB" data-desc="Max Power: 400W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/TF, Feedback Reducer, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-3UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-3UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-3UB.png" alt="AV-3UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-3UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-3UB</div>
+        <div class="product-desc">400W • Feedback Reducer</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5023 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5023" data-name="Sakura AV-5023" data-desc="Max Power: 550W x 2, 5.1 Ch, 2 Mic In, MP3, Tone Control, Loudness, Speaker A/B, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-5023.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5023</span>
+        <img src="./Crown/SAKURA-AMP/AV-5023.png" alt="AV-5023" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5023%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5023</div>
+        <div class="product-desc">550W • 5.1Ch • A/B</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5023US -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5023US" data-name="Sakura AV-5023US" data-desc="Max Power: 550W x 2, 5.1 Ch, 2 Mic In, MP3, USB/SD, Tone, Loudness, Speaker A/B, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-5023US.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5023US</span>
+        <img src="./Crown/SAKURA-AMP/AV-5023US.png" alt="AV-5023US" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5023US%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5023US</div>
+        <div class="product-desc">550W • USB/SD • A/B</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-5023UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-5023UB" data-name="Sakura AV-5023UB" data-desc="Max Power: 550W x 2, 2 Ch, 2 Mic In, Bluetooth, USB/SD, Speaker A/B, FM, 3" Fan" data-img="./Crown/SAKURA-AMP/AV-5023UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-5023UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-5023UB.png" alt="AV-5023UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-5023UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-5023UB</div>
+        <div class="product-desc">550W • Bluetooth • FM</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-739 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-739" data-name="Sakura AV-739" data-desc="750W x 2 (8Ω) / 1400W x 2 (4Ω), 2 Ch, 3 Mic In, USB/SD, Digital Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-739.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-739</span>
+        <img src="./Crown/SAKURA-AMP/AV-739.png" alt="AV-739" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-739%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-739</div>
+        <div class="product-desc">750W • 3 Mic • Echo</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-739UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-739UB" data-name="Sakura AV-739UB" data-desc="750W x 2 (8Ω) / 1400W x 2 (4Ω), 2 Ch, 3 Mic In, Bluetooth, USB/SD, MP4, Echo, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-739UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-739UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-739UB.png" alt="AV-739UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-739UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-739UB</div>
+        <div class="product-desc">750W • Bluetooth • MP4</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-325 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-325" data-name="Sakura AV-325" data-desc="Max Power: 150W x 2, 5 Ch, 2 Mic In" data-img="./Crown/SAKURA-AMP/AV-325.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-325</span>
+        <img src="./Crown/SAKURA-AMP/AV-325.png" alt="AV-325" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-325%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-325</div>
+        <div class="product-desc">150W • 5Ch</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-326 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-326" data-name="Sakura AV-326" data-desc="Max Power: 130W x 2, 5 Ch, 2 Mic In" data-img="./Crown/SAKURA-AMP/AV-326.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-326</span>
+        <img src="./Crown/SAKURA-AMP/AV-326.png" alt="AV-326" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-326%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-326</div>
+        <div class="product-desc">130W • 5Ch</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-326US -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-326US" data-name="Sakura AV-326US" data-desc="Max Power: 130W x 2, 5 Ch, 2 Mic In, USB/SD" data-img="./Crown/SAKURA-AMP/AV-326US.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-326US</span>
+        <img src="./Crown/SAKURA-AMP/AV-326US.png" alt="AV-326US" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-326US%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-326US</div>
+        <div class="product-desc">130W • 5Ch • USB/SD</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-326UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-326UB" data-name="Sakura AV-326UB" data-desc="Max Power: 130W x 2, 5 Ch, 2 Mic In, Bluetooth, USB/SD" data-img="./Crown/SAKURA-AMP/AV-326UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-326UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-326UB.png" alt="AV-326UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-326UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-326UB</div>
+        <div class="product-desc">130W • 5Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-3023US -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-3023US" data-name="Sakura AV-3023US" data-desc="Max Power: 350W x 2, 5 Ch, 3 Mic In, USB/SD, Tone Control, Loudness, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-3023US.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-3023US</span>
+        <img src="./Crown/SAKURA-AMP/AV-3023US.png" alt="AV-3023US" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-3023US%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-3023US</div>
+        <div class="product-desc">350W • 5Ch • USB/SD</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-3023UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-3023UB" data-name="Sakura AV-3023UB" data-desc="Max Power: 350W x 2, 5 Ch, 3 Mic In, Bluetooth, USB/SD, Tone Control, Loudness, 2" Fan" data-img="./Crown/SAKURA-AMP/AV-3023UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-3023UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-3023UB.png" alt="AV-3023UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-3023UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-3023UB</div>
+        <div class="product-desc">350W • 5Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-3025UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-3025UB" data-name="Sakura AV-3025UB" data-desc="Max Power: 400W x 2, 5 Ch, 2 Mic In, Bluetooth, USB/SD, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-3025UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-3025UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-3025UB.png" alt="AV-3025UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-3025UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-3025UB</div>
+        <div class="product-desc">400W • 5Ch • Bluetooth</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-502CB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-502CB" data-name="Sakura AV-502CB" data-desc="Max Power: 500W x 2, 5.1 Ch, 2 Mic In, Bluetooth, USB/SD, Speaker A/B, Tone (Bass/Mid/Treble/Loudness), AUX, 4" Fan, FM" data-img="./Crown/SAKURA-AMP/AV-502CB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-502CB</span>
+        <img src="./Crown/SAKURA-AMP/AV-502CB.png" alt="AV-502CB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-502CB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-502CB</div>
+        <div class="product-desc">500W • 5.1Ch • 3-Band Tone</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-838 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-838" data-name="Sakura AV-838" data-desc="Max Power: 800W x 2, 2 Ch, Bluetooth, USB/SD, FM, Pitch, Coaxial/Optical, Display, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-838.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-838</span>
+        <img src="./Crown/SAKURA-AMP/AV-838.png" alt="AV-838" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-838%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-838</div>
+        <div class="product-desc">800W • Coax/Opt • Pitch</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-389UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-389UB" data-name="Sakura AV-389UB" data-desc="Max Power: 450W x 2, 5.1 Ch, 2 Mic In, Bluetooth, USB/SD, Digital AM/FM, 4" Fan" data-img="./Crown/SAKURA-AMP/AV-389UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-389UB</span>
+        <img src="./Crown/SAKURA-AMP/AV-389UB.png" alt="AV-389UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-389UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-389UB</div>
+        <div class="product-desc">450W • 5.1Ch • AM/FM</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-787 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-787" data-name="Sakura AV-787" data-desc="Max Power: 450W x 2, 4 Mic In, Pitch Control, USB/SD, Digital Echo, 2x 4" Fans" data-img="./Crown/SAKURA-AMP/AV-787.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-787</span>
+        <img src="./Crown/SAKURA-AMP/AV-787.png" alt="AV-787" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-787%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-787</div>
+        <div class="product-desc">450W • 4 Mic • 2 Fans</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-628 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-628" data-name="Sakura AV-628" data-desc="Max Power: 400W x 4, 4 Ch, 2 Mic In, USB/SD, 2x 4" Fans" data-img="./Crown/SAKURA-AMP/AV-628.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-628</span>
+        <img src="./Crown/SAKURA-AMP/AV-628.png" alt="AV-628" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-628%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-628</div>
+        <div class="product-desc">400W x 4 • 4Ch • 2 Fans</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-300 -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-300" data-name="Sakura AV-300" data-desc="Max Power: 300W x 2, 2 Ch, Bluetooth, USB/SD, AUX Line In, Rec Out" data-img="./Crown/SAKURA-AMP/AV-300-AV300P.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-300</span>
+        <img src="./Crown/SAKURA-AMP/AV-300-AV300P.png" alt="AV-300" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-300%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-300</div>
+        <div class="product-desc">300W • 2Ch • AUX</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AV-300P -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AV-300P" data-name="Sakura AV-300P" data-desc="Pre Amp, 2 Mic In, Bluetooth, USB/SD, FM Tuner" data-img="./Crown/SAKURA-AMP/AV-300-AV300P.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">AV-300P</span>
+        <img src="./Crown/SAKURA-AMP/AV-300-AV300P.png" alt="AV-300P" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 AV-300P%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura AV-300P</div>
+        <div class="product-desc">Pre Amp • 2 Mic • FM</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-800UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-800UB" data-name="Sakura PA-800UB" data-desc="Max Power: 800W, 4/8/16Ω / 70/100V, 3 Mic In, Bluetooth, USB/SD, FM, Chime, 6 Zone Control" data-img="./Crown/SAKURA-AMP/PA-800UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-800UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-800UB.png" alt="PA-800UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-800UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-800UB</div>
+        <div class="product-desc">800W • 6 Zone • Chime</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-500UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-500UB" data-name="Sakura PA-500UB" data-desc="Max Power: 500W, 4/8/16Ω / 70/100V, 3 Mic In, Bluetooth, USB/SD, FM, Chime, 6 Zone Control" data-img="./Crown/SAKURA-AMP/PA-500UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-500UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-500UB.png" alt="PA-500UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-500UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-500UB</div>
+        <div class="product-desc">500W • 6 Zone • Chime</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-250UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-250UB" data-name="Sakura PA-250UB" data-desc="Max Power: 250W, 4/8/16Ω / 70/100V, 3 Mic In, Bluetooth, USB/SD, FM, Chime" data-img="./Crown/SAKURA-AMP/PA-250UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-250UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-250UB.png" alt="PA-250UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-250UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-250UB</div>
+        <div class="product-desc">250W • 3 Mic • Chime</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-245UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-245UB" data-name="Sakura PA-245UB" data-desc="Max Power: 245W, AC220/DC12V, 4/8/16Ω / 70V, 2 Mic In, Bluetooth, USB/SD, MP3, FM, Siren" data-img="./Crown/SAKURA-AMP/PA-245UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-245UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-245UB.png" alt="PA-245UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-245UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-245UB</div>
+        <div class="product-desc">245W • DC12V • Siren</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-225UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-225UB" data-name="Sakura PA-225UB" data-desc="Max Power: 225W, AC220/DC12V, 4/8/16Ω / 70V, Bluetooth, USB/SD, MP3, FM, Siren/Chime" data-img="./Crown/SAKURA-AMP/PA-225UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-225UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-225UB.png" alt="PA-225UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-225UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-225UB</div>
+        <div class="product-desc">225W • DC12V • Siren</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-165UB -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-165UB" data-name="Sakura PA-165UB" data-desc="Max Power: 165W, AC220/DC12V, 4/8/16Ω / 70V, Bluetooth, USB/SD, MP3, Siren" data-img="./Crown/SAKURA-AMP/PA-165UB.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-165UB</span>
+        <img src="./Crown/SAKURA-AMP/PA-165UB.png" alt="PA-165UB" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-165UB%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-165UB</div>
+        <div class="product-desc">165W • DC12V • Siren</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-150C -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-150C" data-name="Sakura PA-150C" data-desc="Max Power: 150W, AC220/DC12V, 4/8/16Ω / 70V, 2 Mic In, Tape Deck, 1 AUX, Siren" data-img="./Crown/SAKURA-AMP/PA-150C.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-150C</span>
+        <img src="./Crown/SAKURA-AMP/PA-150C.png" alt="PA-150C" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-150C%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-150C</div>
+        <div class="product-desc">150W • Tape Deck • Siren</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA-80C -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PA-80C" data-name="Sakura PA-80C" data-desc="Max Power: 80W, AC220/DC12V, 4/8/16Ω, 2 Mic In, USB/SD, 1 AUX" data-img="./Crown/SAKURA-AMP/PA-80C.png" data-crowntype="sakura">
+      <div class="product-card text-center">
+        <span class="badge-id">PA-80C</span>
+        <img src="./Crown/SAKURA-AMP/PA-80C.png" alt="PA-80C" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 PA-80C%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Sakura PA-80C</div>
+        <div class="product-desc">80W • USB/SD • AUX</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /row -->
 </div>
-
 
     <!-- ========================================================== -->
     <!--  CONTACT INFO                                              -->
@@ -1578,37 +2155,6 @@
       let activeFilter = 'all';
 
       // ----- helpers -----
-      function initProductSliderControls() {
-        const crownSection = document.querySelector('.category-section[data-category="crown"]');
-        if (!crownSection) return;
-
-        const grid = crownSection.querySelector('.product-grid');
-        if (!grid) return;
-
-        const controls = document.createElement('div');
-        controls.className = 'slider-controls d-flex justify-content-end';
-        controls.innerHTML = `
-          <button type="button" class="btn btn-sm btn-outline-primary slider-prev" aria-label="Previous items">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <button type="button" class="btn btn-sm btn-outline-primary slider-next ms-2" aria-label="Next items">
-            <i class="bi bi-chevron-right"></i>
-          </button>
-        `;
-        crownSection.insertBefore(controls, grid);
-
-        const prevBtn = controls.querySelector('.slider-prev');
-        const nextBtn = controls.querySelector('.slider-next');
-        const scrollStep = () => Math.max(grid.clientWidth * 0.75, 300);
-
-        prevBtn.addEventListener('click', () => {
-          grid.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
-        });
-        nextBtn.addEventListener('click', () => {
-          grid.scrollBy({ left: scrollStep(), behavior: 'smooth' });
-        });
-      }
-
       function updateItemCount() {
         const visible = document.querySelectorAll('.product-item:not(.d-none)');
         itemCountSpan.textContent = visible.length;
@@ -1849,7 +2395,6 @@
         });
       }
       storeOriginalIndices();
-      initProductSliderControls();
 
       // ----- event: main filter buttons -----
       filterButtons.forEach(btn => {
