@@ -7,7 +7,457 @@
   <!-- Bootstrap 5 + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="./assets/shop.css?v=1.0" />
+  <style>
+    /* ─── base ─── */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f7fb;
+      color: #1a1a1a;
+    }
+    .topbar {
+      background: #0A4DBF;
+      color: #fff;
+      padding: 10px 0;
+    }
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .topbar a:hover {
+      color: #FFC107;
+    }
+
+    .search-box {
+      max-width: 640px;
+      margin: 18px auto;
+    }
+    .search-box .input-group-text {
+      background: #fff;
+      border-right: 0;
+    }
+    .search-box .form-control {
+      border-left: 0;
+    }
+    .search-box .form-control:focus {
+      box-shadow: none;
+      border-color: #ced4da;
+    }
+
+    /* ─── product card ─── */
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.4rem 0.8rem;
+      border: 1px solid #e6eefc;
+      transition: box-shadow 0.25s, transform 0.2s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 32px rgba(10, 77, 191, 0.12);
+      border-color: #b8ceec;
+      transform: translateY(-4px);
+    }
+    .product-card img {
+      max-width: 180px;
+      height: 140px;
+      object-fit: contain;
+      margin: 0 auto 0.8rem;
+      display: block;
+    }
+    .badge-id {
+      font-size: 0.65rem;
+      background: #eef4fe;
+      color: #0A4DBF;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.1rem;
+      color: #0f2a4a;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: #6c7a8d;
+      margin-bottom: 0.6rem;
+    }
+    .price {
+      color: #0A4DBF;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .view-btn {
+      background: #0A4DBF;
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.25rem 1.2rem;
+      font-size: 0.8rem;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+      font-weight: 500;
+    }
+    .view-btn:hover {
+      background: #083b94;
+      color: #fff;
+      transform: scale(1.04);
+    }
+
+    /* ─── filter tabs ─── */
+    .tab-filters .btn {
+      border-radius: 40px;
+      padding: 0.35rem 1.6rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .tab-filters .btn-outline-secondary {
+      border-color: #d0dbe8;
+      color: #1e2a3a;
+      background: #fff;
+    }
+    .tab-filters .btn-outline-secondary:hover,
+    .tab-filters .btn-outline-secondary.active {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+    .tab-filters .btn-primary {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+    }
+
+    /* micro‑filter (wired/wireless) */
+    .micro-filter-group .btn {
+      border-radius: 30px;
+      padding: 0.2rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .micro-filter-group .btn-outline-info {
+      border-color: #b8ceec;
+      color: #1f3a5f;
+      background: #fff;
+    }
+    .micro-filter-group .btn-outline-info.active,
+    .micro-filter-group .btn-outline-info:hover {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+
+    .section-header {
+      border-bottom: 2px solid #dce5f0;
+      padding-bottom: 0.4rem;
+      margin: 2rem 0 1.2rem 0;
+    }
+    .section-header h5 {
+      font-weight: 700;
+      color: #0f2a4a;
+    }
+    .item-count {
+      color: #3b4b62;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .form-select-sm {
+      border-radius: 30px;
+      padding: 0.2rem 2rem 0.2rem 1rem;
+      font-weight: 500;
+    }
+
+    .category-section {
+      transition: opacity 0.2s;
+    }
+    .category-section.d-none {
+      display: none !important;
+    }
+
+    .category-section[data-category="crown"] .product-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .category-section[data-category="crown"] .product-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+    .category-section[data-category="crown"] .product-grid::-webkit-scrollbar-thumb {
+      background: rgba(10, 77, 191, 0.24);
+      border-radius: 999px;
+    }
+    .category-section[data-category="crown"] .product-grid .product-item {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      width: calc((100% - 4rem) / 5);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .slider-controls {
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .slider-controls .btn {
+      min-width: 44px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 1200px) {
+      .category-section[data-category="crown"] .product-grid .product-item {
+        width: calc((100% - 3rem) / 4);
+      }
+    }
+    @media (max-width: 992px) {
+      .category-section[data-category="crown"] .product-grid .product-item {
+        width: calc((100% - 2rem) / 3);
+      }
+    }
+    @media (max-width: 768px) {
+      .category-section[data-category="crown"] .product-grid .product-item {
+        width: calc((100% - 1rem) / 2);
+      }
+    }
+    @media (max-width: 576px) {
+      .category-section[data-category="crown"] .product-grid {
+        gap: 0.75rem;
+      }
+      .category-section[data-category="crown"] .product-grid .product-item {
+        width: calc(50% - 0.375rem);
+      }
+    }
+
+    /* ─── contact info card ─── */
+    .contact-info-card {
+      background: linear-gradient(135deg, #0A4DBF 0%, #083b94 100%);
+      border-radius: 24px;
+      padding: 2rem 2rem 1.8rem;
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(10, 77, 191, 0.2);
+      margin-top: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .contact-info-card h4 {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    .contact-info-card .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .contact-info-card .contact-item:last-child {
+      border-bottom: 0;
+    }
+    .contact-info-card .contact-item i {
+      font-size: 1.4rem;
+      color: #FFC107;
+      width: 28px;
+      text-align: center;
+    }
+    .contact-info-card .contact-item .label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      opacity: 0.8;
+      min-width: 80px;
+    }
+    .contact-info-card .contact-item .value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .contact-info-card .contact-item .value a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-info-card .contact-item .value a:hover {
+      color: #FFC107;
+    }
+    .contact-info-card .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .contact-info-card .social-icons a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.8rem;
+      transition: color 0.2s, transform 0.15s;
+    }
+    .contact-info-card .social-icons a:hover {
+      color: #FFC107;
+      transform: translateY(-2px);
+    }
+
+    /* ─── modal ─── */
+    .modal-product-img {
+      max-height: 260px;
+      object-fit: contain;
+      width: 100%;
+    }
+    .fb-order-btn {
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fb-order-btn:hover {
+      background: #0d65d9;
+      color: #fff;
+      transform: scale(1.02);
+    }
+    .order-note {
+      background: #f0f7ff;
+      border-left: 4px solid #1877f2;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+    }
+    .order-note i {
+      color: #1877f2;
+    }
+
+    /* ─── footer ─── */
+    .footer-dark {
+      background: #0b0e1a;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 2.5rem 0 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-dark h6 {
+      color: #fff;
+      font-weight: 600;
+    }
+    .footer-dark a {
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .footer-dark a:hover {
+      color: #FFC107;
+    }
+    .footer-divider {
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ─── crown dropdown ─── */
+    .crown-filter-group {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      width: 100%;
+      gap: 0.5rem;
+      padding-bottom: 0.35rem;
+      margin-top: 0.5rem;
+    }
+    .crown-filter-group::-webkit-scrollbar {
+      height: 8px;
+    }
+    .crown-filter-group::-webkit-scrollbar-thumb {
+      background: rgba(10, 77, 191, 0.24);
+      border-radius: 999px;
+    }
+    .crown-filter-group .btn {
+      border-radius: 30px;
+      padding: 0.2rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .crown-filter-group .btn-outline-secondary {
+      border-color: #b8ceec;
+      color: #1f3a5f;
+      background: #fff;
+    }
+    .crown-filter-group .btn-outline-secondary.active,
+    .crown-filter-group .btn-outline-secondary:hover {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+
+    /* specs inside modal */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1rem;
+      font-size: 0.85rem;
+      background: #f8faff;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin: 0.5rem 0 0.8rem 0;
+      border: 1px solid #e9eef6;
+    }
+    .specs-grid .spec-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+      border-bottom: 1px dashed #e0e6f0;
+    }
+    .specs-grid .spec-item:last-child {
+      border-bottom: 0;
+    }
+    .specs-grid .spec-label {
+      color: #2f4057;
+      font-weight: 500;
+    }
+    .specs-grid .spec-value {
+      color: #0A4DBF;
+      font-weight: 600;
+    }
+
+    /* ─── responsive ─── */
+    @media (max-width: 576px) {
+      .product-card img {
+        height: 120px;
+      }
+      .contact-info-card {
+        padding: 1.5rem;
+      }
+      .contact-info-card .contact-item .label {
+        min-width: 60px;
+        font-size: 0.75rem;
+      }
+      .contact-info-card .contact-item .value {
+        font-size: 0.85rem;
+      }
+      .section-header h5 {
+        font-size: 1.1rem;
+      }
+      .tab-filters .btn {
+        padding: 0.25rem 1rem;
+        font-size: 0.75rem;
+      }
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -58,7 +508,7 @@
         <button class="btn btn-outline-secondary" data-filter="videoke">Videoke</button>
         <button class="btn btn-outline-secondary" data-filter="microphone">Microphone</button>
         <button class="btn btn-outline-secondary" data-filter="speaker">Loud Speaker</button>
-        <button class="btn btn-outline-secondary" data-filter="solar">Solar</button>
+        <button class="btn btn-outline-secondary" data-filter="crown">Crown</button>
       </div>
     </div>
 
@@ -183,144 +633,88 @@
         </div>
       </div>
     </div>
-<!-- ========================================================== -->
-<!--  LOUD SPEAKER - FIXED WITH PROPER RELATIVE PATHS           -->
-<!-- ========================================================== -->
-<div class="category-section" data-category="speaker">
-  <div class="section-header d-flex align-items-center">
-    <h5><i class="bi bi-speaker-fill me-2" style="color:#0A4DBF;"></i>Loud Speaker</h5>
-    <span class="badge bg-light text-dark ms-2">7 items</span>
-  </div>
-  <div class="row g-4 mb-4 product-grid" data-section="speaker">
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1709" data-name="BTS-1709" data-desc="Dual 6.5-inch speaker system with wireless microphone." data-img="./LoudSpeaker/BTS-1709.png">
-      <div class="product-card text-center">
-        <span class="badge-id">BTS-1709</span>
-        <img src="./LoudSpeaker/BTS-1709.png" alt="BTS-1709 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1709%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">BTS-1709</div>
-        <div class="product-desc">Dual 6.5 Inch • Wireless Mic</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1166" data-name="BTS-1166" data-desc="6.5-inch loud speaker with 1800mAh battery and wireless microphone." data-img="./LoudSpeaker/BTS-1166.png">
-      <div class="product-card text-center">
-        <span class="badge-id">BTS-1166</span>
-        <img src="./LoudSpeaker/BTS-1166.png" alt="BTS-1166 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1166%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">BTS-1166</div>
-        <div class="product-desc">6.5 Inch • 1800mAh • Wireless Mic</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="KTS-2000" data-name="KTS-2000" data-desc="6.5-inch portable speaker with built-in mic and rechargeable 20W power." data-img="./LoudSpeaker/KTS-2000.png">
-      <div class="product-card text-center">
-        <span class="badge-id">KTS-2000</span>
-        <img src="./LoudSpeaker/KTS-2000.png" alt="KTS-2000 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 KTS-2000%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">KTS-2000</div>
-        <div class="product-desc">6.5 Inch • With Mic • 20W Rechargeable</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1783" data-name="BTS-1783" data-desc="8-inch loud speaker with microphone and rechargeable 30W + 15W power output." data-img="./LoudSpeaker/BTS-1783.png">
-      <div class="product-card text-center">
-        <span class="badge-id">BTS-1783</span>
-        <img src="./LoudSpeaker/BTS-1783.png" alt="BTS-1783 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1783%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">BTS-1783</div>
-        <div class="product-desc">8 Inch • With Mic • 30W + 15W</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1739" data-name="BTS-1739" data-desc="8-inch loud speaker with 1 wireless microphone and 40W power output." data-img="./LoudSpeaker/BTS-1739.png">
-      <div class="product-card text-center">
-        <span class="badge-id">BTS-1739</span>
-        <img src="./LoudSpeaker/BTS-1739.png" alt="BTS-1739 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1739%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">BTS-1739</div>
-        <div class="product-desc">8 Inch • 1 Wireless Mic • 40W</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1740" data-name="BTS-1740" data-desc="8-inch loud speaker with 2 microphones, one rechargeable and one wired." data-img="./LoudSpeaker/BTS-1740.png">
-      <div class="product-card text-center">
-        <span class="badge-id">BTS-1740</span>
-        <img src="./LoudSpeaker/BTS-1740.png" alt="BTS-1740 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1740%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">BTS-1740</div>
-        <div class="product-desc">8 Inch • 2 Mics • 1 Rechargeable / 1 Wired</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="JBLPartyBox130" data-name="JBL PartyBox 130" data-desc="Dual 5.25-inch woofers, dual 1-inch tweeters, 200W RMS, Bluetooth, Auracast, and IPX4 splashproof build." data-img="./LoudSpeaker/PartyBox-130.jpg">
-      <div class="product-card text-center">
-        <span class="badge-id">JBL PartyBox 130</span>
-        <img src="./LoudSpeaker/PartyBox-130.jpg" alt="JBL PartyBox 130 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 JBL PartyBox%3C/text%3E%3C/svg%3E'" />
-        <div class="product-title">JBL PartyBox 130</div>
-        <div class="product-desc">Dual 5.25" Woofers • 200W RMS</div>
-        <div class="d-flex justify-content-end align-items-center mt-auto">
-          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
     <!-- ========================================================== -->
-    <!--  SOLAR                                                      -->
+    <!--  LOUD SPEAKER                                              -->
     <!-- ========================================================== -->
-    <div class="category-section" data-category="solar">
+    <div class="category-section" data-category="speaker">
       <div class="section-header d-flex align-items-center">
-        <h5><i class="bi bi-sun-fill me-2" style="color:#f1b24a;"></i>Solar</h5>
-        <span class="badge-solar">☀️ green energy</span>
-        <span class="badge bg-light text-dark ms-2">4 items</span>
+        <h5><i class="bi bi-speaker-fill me-2" style="color:#0A4DBF;"></i>Loud Speaker</h5>
+        <span class="badge bg-light text-dark ms-2">7 items</span>
       </div>
-      <div class="row g-4 mb-4 product-grid" data-section="solar">
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="3200" data-id="SOL-4001" data-name="100W Mono Panel" data-desc="High-efficiency monocrystalline solar panel" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E☀️ Panel%3C/text%3E%3C/svg%3E">
+      <div class="row g-4 mb-4 product-grid" data-section="speaker">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1709" data-name="BTS-1709" data-desc="Dual 6.5-inch speaker system with wireless microphone." data-img="./LoudSpeaker/BTS-1709.png">
           <div class="product-card text-center">
-            <span class="badge-id">SOL-4001</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E☀️ Panel%3C/text%3E%3C/svg%3E" alt="Solar panel" />
-            <div class="product-title">100W Mono Panel</div>
-            <div class="product-desc">High efficiency</div>
+            <span class="badge-id">BTS-1709</span>
+            <img src="./LoudSpeaker/BTS-1709.png" alt="BTS-1709 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1709%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">BTS-1709</div>
+            <div class="product-desc">Dual 6.5 Inch • Wireless Mic</div>
             <div class="d-flex justify-content-end align-items-center mt-auto">
               <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="12500" data-id="SOL-4002" data-name="Power Station 300W" data-desc="Portable power station with MPPT charge controller" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E🔋 Generator%3C/text%3E%3C/svg%3E">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1166" data-name="BTS-1166" data-desc="6.5-inch loud speaker with 1800mAh battery and wireless microphone." data-img="./LoudSpeaker/BTS-1166.png">
           <div class="product-card text-center">
-            <span class="badge-id">SOL-4002</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E🔋 Generator%3C/text%3E%3C/svg%3E" alt="Solar generator" />
-            <div class="product-title">Power Station 300W</div>
-            <div class="product-desc">AC/DC, MPPT</div>
+            <span class="badge-id">BTS-1166</span>
+            <img src="./LoudSpeaker/BTS-1166.png" alt="BTS-1166 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1166%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">BTS-1166</div>
+            <div class="product-desc">6.5 Inch • 1800mAh • Wireless Mic</div>
             <div class="d-flex justify-content-end align-items-center mt-auto">
               <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1850" data-id="SOL-4003" data-name="Solar Flood Light" data-desc="50W solar flood light with remote control" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E💡 Light%3C/text%3E%3C/svg%3E">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="KTS-2000" data-name="KTS-2000" data-desc="6.5-inch portable speaker with built-in mic and rechargeable 20W power." data-img="./LoudSpeaker/KTS-2000.png">
           <div class="product-card text-center">
-            <span class="badge-id">SOL-4003</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E💡 Light%3C/text%3E%3C/svg%3E" alt="Solar light" />
-            <div class="product-title">Solar Flood Light</div>
-            <div class="product-desc">50W, remote</div>
+            <span class="badge-id">KTS-2000</span>
+            <img src="./LoudSpeaker/KTS-2000.png" alt="KTS-2000 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 KTS-2000%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">KTS-2000</div>
+            <div class="product-desc">6.5 Inch • With Mic • 20W Rechargeable</div>
             <div class="d-flex justify-content-end align-items-center mt-auto">
               <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="1200" data-id="SOL-4004" data-name="Charge Controller" data-desc="40A PWM solar charge controller" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E⚡ Controller%3C/text%3E%3C/svg%3E">
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1783" data-name="BTS-1783" data-desc="8-inch loud speaker with microphone and rechargeable 30W + 15W power output." data-img="./LoudSpeaker/BTS-1783.png">
           <div class="product-card text-center">
-            <span class="badge-id">SOL-4004</span>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='160'%3E%3Crect width='200' height='160' fill='%23e6eefc'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='20' fill='%23f1b24a' text-anchor='middle' dominant-baseline='central'%3E⚡ Controller%3C/text%3E%3C/svg%3E" alt="Charge controller" />
-            <div class="product-title">Charge Controller</div>
-            <div class="product-desc">40A, PWM</div>
+            <span class="badge-id">BTS-1783</span>
+            <img src="./LoudSpeaker/BTS-1783.png" alt="BTS-1783 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1783%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">BTS-1783</div>
+            <div class="product-desc">8 Inch • With Mic • 30W + 15W</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1739" data-name="BTS-1739" data-desc="8-inch loud speaker with 1 wireless microphone and 40W power output." data-img="./LoudSpeaker/BTS-1739.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1739</span>
+            <img src="./LoudSpeaker/BTS-1739.png" alt="BTS-1739 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1739%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">BTS-1739</div>
+            <div class="product-desc">8 Inch • 1 Wireless Mic • 40W</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="BTS-1740" data-name="BTS-1740" data-desc="8-inch loud speaker with 2 microphones, one rechargeable and one wired." data-img="./LoudSpeaker/BTS-1740.png">
+          <div class="product-card text-center">
+            <span class="badge-id">BTS-1740</span>
+            <img src="./LoudSpeaker/BTS-1740.png" alt="BTS-1740 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 BTS-1740%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">BTS-1740</div>
+            <div class="product-desc">8 Inch • 2 Mics • 1 Rechargeable / 1 Wired</div>
+            <div class="d-flex justify-content-end align-items-center mt-auto">
+              <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="JBLPartyBox130" data-name="JBL PartyBox 130" data-desc="Dual 5.25-inch woofers, dual 1-inch tweeters, 200W RMS, Bluetooth, Auracast, and IPX4 splashproof build." data-img="./LoudSpeaker/PartyBox-130.jpg">
+          <div class="product-card text-center">
+            <span class="badge-id">JBL PartyBox 130</span>
+            <img src="./LoudSpeaker/PartyBox-130.jpg" alt="JBL PartyBox 130 loud speaker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 JBL PartyBox%3C/text%3E%3C/svg%3E'" />
+            <div class="product-title">JBL PartyBox 130</div>
+            <div class="product-desc">Dual 5.25" Woofers • 200W RMS</div>
             <div class="d-flex justify-content-end align-items-center mt-auto">
               <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
             </div>
@@ -329,8 +723,607 @@
       </div>
     </div>
 
+
+<!-- ========================================================== -->
+<!--  CROWN (POWER AMPLIFIER)                                   -->
+<!-- ========================================================== -->
+<div class="category-section" data-category="crown">
+  <div class="section-header d-flex align-items-center flex-wrap">
+    <h5 class="me-3"><i class="bi bi-broadcast me-2" style="color:#0A4DBF;"></i>Crown – Power Amplifier</h5>
+    <span class="badge bg-light text-dark me-3" id="crownItemCount">38 items</span>
+    <!-- crown sub-filter: all series -->
+    <div class="btn-group crown-filter-group flex-wrap" role="group" id="crownFilterGroup">
+      <button class="btn btn-outline-secondary active" data-cfilter="all">All</button>
+      <button class="btn btn-outline-secondary" data-cfilter="4ch">4‑Channel</button>
+      <button class="btn btn-outline-secondary" data-cfilter="2ch">2‑Channel</button>
+      <button class="btn btn-outline-secondary" data-cfilter="authority">Authority</button>
+      <button class="btn btn-outline-secondary" data-cfilter="crossover">Crossover</button>
+      <button class="btn btn-outline-secondary" data-cfilter="elegant">Elegant</button>
+      <button class="btn btn-outline-secondary" data-cfilter="marksman">Marksman</button>
+      <button class="btn btn-outline-secondary" data-cfilter="extreme">Extreme</button>
+      <button class="btn btn-outline-secondary" data-cfilter="premium">Premium</button>
+      <button class="btn btn-outline-secondary" data-cfilter="sub">Sub Enhanced</button>
+      <button class="btn btn-outline-secondary" data-cfilter="thermal">Thermal Control</button>
+      <button class="btn btn-outline-secondary" data-cfilter="thunder">Thunder</button>
+      <button class="btn btn-outline-secondary" data-cfilter="rack">Server Rack</button>
+      <button class="btn btn-outline-secondary" data-cfilter="ktv">KTV</button>
+      <button class="btn btn-outline-secondary" data-cfilter="raptor">Raptor</button>
+      <button class="btn btn-outline-secondary" data-cfilter="supreme">Supreme</button>
+      <button class="btn btn-outline-secondary" data-cfilter="warrior">Ultimate Warrior</button>
+      <button class="btn btn-outline-secondary" data-cfilter="dj">Disc Jockey</button>
+      <button class="btn btn-outline-secondary" data-cfilter="alpha">Alpha</button>
+    </div>
+  </div>
+  <div class="row g-4 mb-4 product-grid" data-section="crown">
+
+    <!-- ===== 4‑CHANNEL ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-6.4" data-name="Crown UC-6.4" data-desc="4‑Channel: 4x600W (8Ω), 4x900W (4Ω), 2x1800W (8Ω Bridge)" data-img="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="4ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-6.4</span>
+        <img src="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" alt="UC-6.4" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-6.4</div>
+        <div class="product-desc">4-Channel • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-8.4" data-name="Crown UC-8.4" data-desc="4‑Channel: 4x800W (8Ω), 4x1200W (4Ω), 2x2400W (8Ω Bridge)" data-img="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="4ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-8.4</span>
+        <img src="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" alt="UC-8.4" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-8.4</div>
+        <div class="product-desc">4-Channel • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-10.4" data-name="Crown UC-10.4" data-desc="4‑Channel: 4x1000W (8Ω), 4x1500W (4Ω), 2x3000W (8Ω Bridge)" data-img="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="4ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-10.4</span>
+        <img src="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" alt="UC-10.4" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-10.4</div>
+        <div class="product-desc">4-Channel • 1000W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-13.4" data-name="Crown UC-13.4" data-desc="4‑Channel: 4x1300W (8Ω), 4x1950W (4Ω), 2x3900W (8Ω Bridge)" data-img="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="4ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-13.4</span>
+        <img src="./Crown/4-CHANNEL-POWER-AMPLIFIER.png" alt="UC-13.4" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-13.4</div>
+        <div class="product-desc">4-Channel • 1300W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2‑CHANNEL ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-6.2" data-name="Crown UC-6.2" data-desc="2‑Channel: 2x600W (8Ω), 2x900W (4Ω), 1800W (8Ω Bridge)" data-img="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="2ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-6.2</span>
+        <img src="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" alt="UC-6.2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-6.2</div>
+        <div class="product-desc">2-Channel • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-8.2" data-name="Crown UC-8.2" data-desc="2‑Channel: 2x800W (8Ω), 2x1200W (4Ω), 2400W (8Ω Bridge)" data-img="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="2ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-8.2</span>
+        <img src="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" alt="UC-8.2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-8.2</div>
+        <div class="product-desc">2-Channel • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-10.2" data-name="Crown UC-10.2" data-desc="2‑Channel: 2x1000W (8Ω), 2x1500W (4Ω), 3000W (8Ω Bridge)" data-img="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="2ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-10.2</span>
+        <img src="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" alt="UC-10.2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-10.2</div>
+        <div class="product-desc">2-Channel • 1000W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-13.2" data-name="Crown UC-13.2" data-desc="2‑Channel: 2x1300W (8Ω), 2x2000W (4Ω), 3600W (8Ω Bridge)" data-img="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="2ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-13.2</span>
+        <img src="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" alt="UC-13.2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-13.2</div>
+        <div class="product-desc">2-Channel • 1300W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UC-15.2" data-name="Crown UC-15.2" data-desc="2‑Channel: 2x1500W (8Ω), 2x2250W (4Ω), 4500W (8Ω Bridge)" data-img="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" data-crowntype="2ch">
+      <div class="product-card text-center">
+        <span class="badge-id">UC-15.2</span>
+        <img src="./Crown/2-CHANNEL-POWER-AMPLIFIER.png" alt="UC-15.2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UC-15.2</div>
+        <div class="product-desc">2-Channel • 1500W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AUTHORITY SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CA-1250" data-name="Crown CA-1250" data-desc="8Ω: 2x1250W, 4Ω: 2x1850W, 2Ω: 2x1500W, Bridged 8Ω: 3700W, 4Ω: 3900W" data-img="./Crown/AUTHORITY-Series.png" data-crowntype="authority" data-specs='{"THD+N (Rated Power, 4Ω/1kHz)":"< 0.5%","SMPTE IMD (Rated Power at 8Ω)":"< 0.5%","Crossover":"Low Pass: 20Hz-120Hz-6dB, Low Cut: 120Hz-20kHz-6dB","Freq. Response":"20Hz-20kHz (±1dB)","Power Bandwidth":"20Hz-20kHz, -0.84dB/+0dB","Standard Input Sensitivity":"1V","Hum and Noise":"95dB","Input CMRR":"≥ 60dB","Crosstalk":"≥ 60dB","Input Impedance":"20KΩ / 10KΩ","Power Supply":"220V / 60Hz","Tour Class Protection":"DC, Short, High Temp, Inrush, Overload, Soft Startup","Controls":"Front: 2 Attenuators, Power; Rear: Ground Lift, Mode, Filter","Connectors":"XLR/Jack (in), Binding Posts/Speakon (out)"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CA-1250</span>
+        <img src="./Crown/AUTHORITY-Series.png" alt="CA-1250" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CA-1250</div>
+        <div class="product-desc">Authority • 1250W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CA-870" data-name="Crown CA-870" data-desc="8Ω: 2x870W, 4Ω: 2x1300W, 2Ω: 2x1000W, Bridged 8Ω: 2600W, 4Ω: 2800W" data-img="./Crown/AUTHORITY-Series.png" data-crowntype="authority" data-specs='{"THD+N (Rated Power, 4Ω/1kHz)":"< 0.5%","SMPTE IMD (Rated Power at 8Ω)":"< 0.5%","Crossover":"Low Pass: 20Hz-120Hz-6dB, Low Cut: 120Hz-20kHz-6dB","Freq. Response":"20Hz-20kHz (±1dB)","Power Bandwidth":"20Hz-20kHz, -0.84dB/+0dB","Standard Input Sensitivity":"1V","Hum and Noise":"95dB","Input CMRR":"≥ 60dB","Crosstalk":"≥ 60dB","Input Impedance":"20KΩ / 10KΩ","Power Supply":"220V / 60Hz","Tour Class Protection":"DC, Short, High Temp, Inrush, Overload, Soft Startup","Controls":"Front: 2 Attenuators, Power; Rear: Ground Lift, Mode, Filter","Connectors":"XLR/Jack (in), Binding Posts/Speakon (out)"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CA-870</span>
+        <img src="./Crown/AUTHORITY-Series.png" alt="CA-870" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CA-870</div>
+        <div class="product-desc">Authority • 870W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CA-430" data-name="Crown CA-430" data-desc="8Ω: 2x430W, 4Ω: 2x645W, 2Ω: 2x700W, Bridged 8Ω: 1280W, 4Ω: 1400W" data-img="./Crown/AUTHORITY-Series.png" data-crowntype="authority" data-specs='{"THD+N (Rated Power, 4Ω/1kHz)":"< 0.5%","SMPTE IMD (Rated Power at 8Ω)":"< 0.5%","Crossover":"Low Pass: 20Hz-120Hz-6dB, Low Cut: 120Hz-20kHz-6dB","Freq. Response":"20Hz-20kHz (±1dB)","Power Bandwidth":"20Hz-20kHz, -0.84dB/+0dB","Standard Input Sensitivity":"1V","Hum and Noise":"95dB","Input CMRR":"≥ 60dB","Crosstalk":"≥ 60dB","Input Impedance":"20KΩ / 10KΩ","Power Supply":"220V / 60Hz","Tour Class Protection":"DC, Short, High Temp, Inrush, Overload, Soft Startup","Controls":"Front: 2 Attenuators, Power; Rear: Ground Lift, Mode, Filter","Connectors":"XLR/Jack (in), Binding Posts/Speakon (out)"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CA-430</span>
+        <img src="./Crown/AUTHORITY-Series.png" alt="CA-430" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CA-430</div>
+        <div class="product-desc">Authority • 430W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CROSSOVER SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CO-1400" data-name="Crown CO-1400" data-desc="8Ω: 2x1400W, 4Ω: 2x2050W, 2Ω: 2x1350W, Bridge 8Ω: 4000W, 4Ω: 2600W" data-img="./Crown/CROSSOVER-Series.png" data-crowntype="crossover" data-specs='{"Filter Capacitor":"10000µF/100V x 2","Damping Factor":"≥ 500","Power Consumption":"5.0A","Net Weight":"27.0 kg","S/N":"≥ 103dB","Structure":"3U","Dimension":"483 x 132 x 518mm","Cooling":"Back to Front Venting","Phase Response":"20Hz +5° 20kHz -25°"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CO-1400</span>
+        <img src="./Crown/CROSSOVER-Series.png" alt="CO-1400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CO-1400</div>
+        <div class="product-desc">Crossover • 1400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CO-800" data-name="Crown CO-800" data-desc="8Ω: 2x800W, 4Ω: 2x1200W, Bridge 8Ω: 2350W" data-img="./Crown/CROSSOVER-Series.png" data-crowntype="crossover" data-specs='{"Filter Capacitor":"12000µF/80V x 4","Damping Factor":"≥ 300","Power Consumption":"4.4A","Net Weight":"17.0 kg","S/N":"≥ 100dB","Structure":"2U","Dimension":"483 x 88 x 399mm","Cooling":"Front to Back Venting","Phase Response":"20Hz +5° 20kHz -25°"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CO-800</span>
+        <img src="./Crown/CROSSOVER-Series.png" alt="CO-800" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CO-800</div>
+        <div class="product-desc">Crossover • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="CO-600" data-name="Crown CO-600" data-desc="8Ω: 2x600W, 4Ω: 2x850W, Bridge 8Ω: 1650W" data-img="./Crown/CROSSOVER-Series.png" data-crowntype="crossover" data-specs='{"Filter Capacitor":"10000µF/63V x 4","Damping Factor":"≥ 250","Power Consumption":"3.2A","Net Weight":"14.5 kg","S/N":"≥ 100dB","Structure":"2U","Dimension":"483 x 88 x 399mm","Cooling":"Front to Back Venting","Phase Response":"20Hz +4° 20kHz -15°"}'>
+      <div class="product-card text-center">
+        <span class="badge-id">CO-600</span>
+        <img src="./Crown/CROSSOVER-Series.png" alt="CO-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown CO-600</div>
+        <div class="product-desc">Crossover • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ELEGANT SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EL-16002" data-name="Crown EL-16002" data-desc="8Ω: 2x1600W, 4Ω: 2x2350W, 2Ω: 1650W, Bridge 8Ω: 4000W, 4Ω: 4700W" data-img="./Crown/ELEGANT-Series.png" data-crowntype="elegant">
+      <div class="product-card text-center">
+        <span class="badge-id">EL-16002</span>
+        <img src="./Crown/ELEGANT-Series.png" alt="EL-16002" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EL-16002</div>
+        <div class="product-desc">Elegant • 1600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EL-9002" data-name="Crown EL-9002" data-desc="8Ω: 2x900W, 4Ω: 2x1300W, 2Ω: 950W, Bridge 8Ω: 2250W, 4Ω: 2600W" data-img="./Crown/ELEGANT-Series.png" data-crowntype="elegant">
+      <div class="product-card text-center">
+        <span class="badge-id">EL-9002</span>
+        <img src="./Crown/ELEGANT-Series.png" alt="EL-9002" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EL-9002</div>
+        <div class="product-desc">Elegant • 900W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EL-7002" data-name="Crown EL-7002" data-desc="8Ω: 2x700W, 4Ω: 2x1000W, 2Ω: 750W, Bridge 8Ω: 1750W, 4Ω: 2000W" data-img="./Crown/ELEGANT-Series.png" data-crowntype="elegant">
+      <div class="product-card text-center">
+        <span class="badge-id">EL-7002</span>
+        <img src="./Crown/ELEGANT-Series.png" alt="EL-7002" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EL-7002</div>
+        <div class="product-desc">Elegant • 700W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EL-7004" data-name="Crown EL-7004" data-desc="4‑Channel: 4x700W (8Ω), 4x1000W (4Ω), 2Ω: 750W" data-img="./Crown/ELEGANT-Series.png" data-crowntype="elegant">
+      <div class="product-card text-center">
+        <span class="badge-id">EL-7004</span>
+        <img src="./Crown/ELEGANT-Series.png" alt="EL-7004" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EL-7004</div>
+        <div class="product-desc">Elegant • 4x700W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MARKSMAN SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="MK-1000" data-name="Crown MK-1000" data-desc="8Ω: 2x1200W, 4Ω: 2x1800W, 2Ω: 2x2500W, Bridge 8Ω: 3000W, 4Ω: 4500W" data-img="./Crown/MARKSMAN-Series.png" data-crowntype="marksman">
+      <div class="product-card text-center">
+        <span class="badge-id">MK-1000</span>
+        <img src="./Crown/MARKSMAN-Series.png" alt="MK-1000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown MK-1000</div>
+        <div class="product-desc">Marksman • 1200W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="MK-600" data-name="Crown MK-600" data-desc="8Ω: 2x600W, 4Ω: 2x900W, 2Ω: 2x1500W, Bridge 8Ω: 1800W, 4Ω: 2700W" data-img="./Crown/MARKSMAN-Series.png" data-crowntype="marksman">
+      <div class="product-card text-center">
+        <span class="badge-id">MK-600</span>
+        <img src="./Crown/MARKSMAN-Series.png" alt="MK-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown MK-600</div>
+        <div class="product-desc">Marksman • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="MK-400" data-name="Crown MK-400" data-desc="8Ω: 2x400W, 4Ω: 2x600W, 2Ω: 2x1000W, Bridge 8Ω: 1200W, 4Ω: 1800W" data-img="./Crown/MARKSMAN-Series.png" data-crowntype="marksman">
+      <div class="product-card text-center">
+        <span class="badge-id">MK-400</span>
+        <img src="./Crown/MARKSMAN-Series.png" alt="MK-400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown MK-400</div>
+        <div class="product-desc">Marksman • 400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EXTREME SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EX-1750" data-name="Crown EX-1750" data-desc="8Ω: 2x1750W, 4Ω: 2x2600W, 2Ω: 2x1800W, Bridge 8Ω: 5200W, 4Ω: 3600W" data-img="./Crown/EXTREME-SERIES.png" data-crowntype="extreme">
+      <div class="product-card text-center">
+        <span class="badge-id">EX-1750</span>
+        <img src="./Crown/EXTREME-SERIES.png" alt="EX-1750" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EX-1750</div>
+        <div class="product-desc">Extreme • 1750W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EX-1300" data-name="Crown EX-1300" data-desc="8Ω: 2x1300W, 4Ω: 2x1950W, 2Ω: 2x1350W, Bridge 8Ω: 3900W, 4Ω: 2700W" data-img="./Crown/EXTREME-SERIES.png" data-crowntype="extreme">
+      <div class="product-card text-center">
+        <span class="badge-id">EX-1300</span>
+        <img src="./Crown/EXTREME-SERIES.png" alt="EX-1300" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EX-1300</div>
+        <div class="product-desc">Extreme • 1300W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EX-1000" data-name="Crown EX-1000" data-desc="8Ω: 2x1000W, 4Ω: 2x1500W, 2Ω: 2x1050W, Bridge 8Ω: 3000W, 4Ω: 2100W" data-img="./Crown/EXTREME-SERIES.png" data-crowntype="extreme">
+      <div class="product-card text-center">
+        <span class="badge-id">EX-1000</span>
+        <img src="./Crown/EXTREME-SERIES.png" alt="EX-1000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EX-1000</div>
+        <div class="product-desc">Extreme • 1000W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EX-565" data-name="Crown EX-565" data-desc="8Ω: 2x565W, 4Ω: 2x850W, Bridge 8Ω: 1700W" data-img="./Crown/EXTREME-SERIES.png" data-crowntype="extreme">
+      <div class="product-card text-center">
+        <span class="badge-id">EX-565</span>
+        <img src="./Crown/EXTREME-SERIES.png" alt="EX-565" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EX-565</div>
+        <div class="product-desc">Extreme • 565W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="EX-435" data-name="Crown EX-435" data-desc="8Ω: 2x435W, 4Ω: 2x650W, Bridge 8Ω: 1300W" data-img="./Crown/EXTREME-SERIES.png" data-crowntype="extreme">
+      <div class="product-card text-center">
+        <span class="badge-id">EX-435</span>
+        <img src="./Crown/EXTREME-SERIES.png" alt="EX-435" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown EX-435</div>
+        <div class="product-desc">Extreme • 435W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PREMIUM SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PR-1000" data-name="Crown PR-1000" data-desc="8Ω: 2x1000W, 4Ω: 2x1400W, Bridge 8Ω: 3200W" data-img="./Crown/PREMIUM-Series.png" data-crowntype="premium">
+      <div class="product-card text-center">
+        <span class="badge-id">PR-1000</span>
+        <img src="./Crown/PREMIUM-Series.png" alt="PR-1000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown PR-1000</div>
+        <div class="product-desc">Premium • 1000W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PR-800" data-name="Crown PR-800" data-desc="8Ω: 2x800W, 4Ω: 2x1000W, Bridge 8Ω: 2400W" data-img="./Crown/PREMIUM-Series.png" data-crowntype="premium">
+      <div class="product-card text-center">
+        <span class="badge-id">PR-800</span>
+        <img src="./Crown/PREMIUM-Series.png" alt="PR-800" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown PR-800</div>
+        <div class="product-desc">Premium • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PR-600" data-name="Crown PR-600" data-desc="8Ω: 2x600W, 4Ω: 2x800W, Bridge 8Ω: 2000W" data-img="./Crown/PREMIUM-Series.png" data-crowntype="premium">
+      <div class="product-card text-center">
+        <span class="badge-id">PR-600</span>
+        <img src="./Crown/PREMIUM-Series.png" alt="PR-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown PR-600</div>
+        <div class="product-desc">Premium • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="PR-400" data-name="Crown PR-400" data-desc="8Ω: 2x400W, 4Ω: 2x550W, Bridge 8Ω: 1300W" data-img="./Crown/PREMIUM-Series.png" data-crowntype="premium">
+      <div class="product-card text-center">
+        <span class="badge-id">PR-400</span>
+        <img src="./Crown/PREMIUM-Series.png" alt="PR-400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown PR-400</div>
+        <div class="product-desc">Premium • 400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUB ENHANCED ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="SE-1700" data-name="Crown SE-1700" data-desc="8Ω: 2x1700W, 4Ω: 2x2250W, 2Ω: 2x3000W, Bridge 8Ω: 4200W, 4Ω: 5200W" data-img="./Crown/SUB-ENHANCED-Series.png" data-crowntype="sub">
+      <div class="product-card text-center">
+        <span class="badge-id">SE-1700</span>
+        <img src="./Crown/SUB-ENHANCED-Series.png" alt="SE-1700" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown SE-1700</div>
+        <div class="product-desc">Sub Enhanced • 1700W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== THERMAL CONTROL ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="TC-600" data-name="Crown TC-600" data-desc="8Ω: 2x600W, 4Ω: 2x850W, 2Ω: 2x1150W, Bridge 8Ω: 1600W, 4Ω: 2200W" data-img="./Crown/THERMAL-CONTROL-Series.png" data-crowntype="thermal">
+      <div class="product-card text-center">
+        <span class="badge-id">TC-600</span>
+        <img src="./Crown/THERMAL-CONTROL-Series.png" alt="TC-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown TC-600</div>
+        <div class="product-desc">Thermal Control • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== THUNDER SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="TS-3500" data-name="Crown TS-3500" data-desc="8Ω: 2x3500W, 4Ω: 2x5000W, Bridge 8Ω: 8600W, 4Ω: 11000W" data-img="./Crown/THUNDER-Series.png" data-crowntype="thunder">
+      <div class="product-card text-center">
+        <span class="badge-id">TS-3500</span>
+        <img src="./Crown/THUNDER-Series.png" alt="TS-3500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown TS-3500</div>
+        <div class="product-desc">Thunder • 3500W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="TS-2400" data-name="Crown TS-2400" data-desc="8Ω: 2x2400W, 4Ω: 2x3600W, Bridge 8Ω: 6000W, 4Ω: 8500W" data-img="./Crown/THUNDER-Series.png" data-crowntype="thunder">
+      <div class="product-card text-center">
+        <span class="badge-id">TS-2400</span>
+        <img src="./Crown/THUNDER-Series.png" alt="TS-2400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown TS-2400</div>
+        <div class="product-desc">Thunder • 2400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MULTI-PURPOSE SERVER RACK ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="FCS-1610" data-name="FCS-1610 Server Rack" data-desc="Multi-Purpose Server Rack: 598x602x1610mm, Front Glass Door, Dual Doors" data-img="./Crown/Multi-Purpose-Serve-Rack.png" data-crowntype="rack">
+      <div class="product-card text-center">
+        <span class="badge-id">FCS-1610</span>
+        <img src="./Crown/Multi-Purpose-Serve-Rack.png" alt="FCS-1610" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">FCS-1610 Rack</div>
+        <div class="product-desc">Server Rack • 1610mm</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== KTV SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="KTV1100" data-name="Crown KTV1100" data-desc="8Ω: 2x1100W, 4Ω: 2x1600W, S/N >80dB, Net 8kg" data-img="./Crown/KTV1100.png" data-crowntype="ktv">
+      <div class="product-card text-center">
+        <span class="badge-id">KTV1100</span>
+        <img src="./Crown/KTV1100.png" alt="KTV1100" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown KTV1100</div>
+        <div class="product-desc">KTV • 1100W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="KTV1050" data-name="Crown KTV1050" data-desc="8Ω: 2x1050W, 4Ω: 2x1550W, S/N 110dB, Protection: Soft Start, Short Circuit, Limiter" data-img="./Crown/KTV1050.png" data-crowntype="ktv">
+      <div class="product-card text-center">
+        <span class="badge-id">KTV1050</span>
+        <img src="./Crown/KTV1050.png" alt="KTV1050" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown KTV1050</div>
+        <div class="product-desc">KTV • 1050W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RAPTOR SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="RS-800" data-name="Crown RS-800" data-desc="8Ω: 2x800W, 4Ω: 2x1000W, 2Ω: 2x1200W" data-img="./Crown/RAPTOR-Series.png" data-crowntype="raptor">
+      <div class="product-card text-center">
+        <span class="badge-id">RS-800</span>
+        <img src="./Crown/RAPTOR-Series.png" alt="RS-800" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown RS-800</div>
+        <div class="product-desc">Raptor • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="RS-600" data-name="Crown RS-600" data-desc="8Ω: 2x600W, 4Ω: 2x800W, 2Ω: 2x1000W" data-img="./Crown/RAPTOR-Series.png" data-crowntype="raptor">
+      <div class="product-card text-center">
+        <span class="badge-id">RS-600</span>
+        <img src="./Crown/RAPTOR-Series.png" alt="RS-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown RS-600</div>
+        <div class="product-desc">Raptor • 600W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="RS-400" data-name="Crown RS-400" data-desc="8Ω: 2x400W, 4Ω: 2x550W, 2Ω: 2x750W" data-img="./Crown/RAPTOR-Series.png" data-crowntype="raptor">
+      <div class="product-card text-center">
+        <span class="badge-id">RS-400</span>
+        <img src="./Crown/RAPTOR-Series.png" alt="RS-400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown RS-400</div>
+        <div class="product-desc">Raptor • 400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUPREME SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="SS-1000" data-name="Crown SS-1000" data-desc="8Ω: 2x1000W, 4Ω: 2x1500W, THD <0.08%, Voltage Gain 38dB" data-img="./Crown/SUPREME-Series.png" data-crowntype="supreme">
+      <div class="product-card text-center">
+        <span class="badge-id">SS-1000</span>
+        <img src="./Crown/SUPREME-Series.png" alt="SS-1000" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown SS-1000</div>
+        <div class="product-desc">Supreme • 1000W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="SS-800" data-name="Crown SS-800" data-desc="8Ω: 2x800W, 4Ω: 2x1200W, THD <0.08%, Voltage Gain 38dB" data-img="./Crown/SUPREME-Series.png" data-crowntype="supreme">
+      <div class="product-card text-center">
+        <span class="badge-id">SS-800</span>
+        <img src="./Crown/SUPREME-Series.png" alt="SS-800" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown SS-800</div>
+        <div class="product-desc">Supreme • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="SS-600" data-name="Crown SS-600" data-desc="8Ω: 2x400W, 4Ω: 2x600W, THD <0.05%, Voltage Gain 36dB" data-img="./Crown/SUPREME-Series.png" data-crowntype="supreme">
+      <div class="product-card text-center">
+        <span class="badge-id">SS-600</span>
+        <img src="./Crown/SUPREME-Series.png" alt="SS-600" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown SS-600</div>
+        <div class="product-desc">Supreme • 400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ULTIMATE WARRIOR ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UW-750" data-name="Crown UW-750" data-desc="8Ω: 2x750W, 4Ω: 900W, 2Ω: 1000W" data-img="./Crown/ULTIMATE-WARRIOR-Series.png" data-crowntype="warrior">
+      <div class="product-card text-center">
+        <span class="badge-id">UW-750</span>
+        <img src="./Crown/ULTIMATE-WARRIOR-Series.png" alt="UW-750" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UW-750</div>
+        <div class="product-desc">Warrior • 750W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="UW-550" data-name="Crown UW-550" data-desc="8Ω: 2x550W, 4Ω: 700W, 2Ω: 800W" data-img="./Crown/ULTIMATE-WARRIOR-Series.png" data-crowntype="warrior">
+      <div class="product-card text-center">
+        <span class="badge-id">UW-550</span>
+        <img src="./Crown/ULTIMATE-WARRIOR-Series.png" alt="UW-550" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown UW-550</div>
+        <div class="product-desc">Warrior • 550W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DISC JOCKEY ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="DJ-400" data-name="Crown DJ-400" data-desc="8Ω: 2x400W, 4Ω: 600W, Bridge 8Ω: 1200W, 4Ω: 1800W" data-img="./Crown/DISC-JOCKEY.png" data-crowntype="dj">
+      <div class="product-card text-center">
+        <span class="badge-id">DJ-400</span>
+        <img src="./Crown/DISC-JOCKEY.png" alt="DJ-400" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown DJ-400</div>
+        <div class="product-desc">Disc Jockey • 400W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ALPHA SERIES ===== -->
+    <div class="col-sm-6 col-md-4 col-lg-3 product-item" data-price="0" data-id="AS-800" data-name="Crown AS-800" data-desc="8Ω: 2x800W, 4Ω: 2x950W, Freq Resp: 20Hz-30kHz, 1V Sensitivity" data-img="./Crown/ALPHA-Series.png" data-crowntype="alpha">
+      <div class="product-card text-center">
+        <span class="badge-id">AS-800</span>
+        <img src="./Crown/ALPHA-Series.png" alt="AS-800" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22160%22%3E%3Crect width=%22200%22 height=%22160%22 fill=%22%23e6eefc%22/%3E%3Ctext x=%22100%22 y=%2280%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%230A4DBF%22 text-anchor=%22middle%22 dominant-baseline=%22central%22%3E🔊 Crown%3C/text%3E%3C/svg%3E'" />
+        <div class="product-title">Crown AS-800</div>
+        <div class="product-desc">Alpha • 800W</div>
+        <div class="d-flex justify-content-end align-items-center mt-auto">
+          <button class="view-btn view-detail" data-bs-toggle="modal" data-bs-target="#productModal"><i class="bi bi-eye me-1"></i> View</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /row -->
+</div><!-- /crown section -->
     <!-- ========================================================== -->
-    <!--  CONTACT INFO (updated with your details)                   -->
+    <!--  CONTACT INFO                                              -->
     <!-- ========================================================== -->
     <div id="contactInfo" class="contact-info-card">
       <div class="row align-items-center">
@@ -402,6 +1395,13 @@
             <div class="col-md-7">
               <h6 class="text-muted mb-1">Description</h6>
               <p id="modalProductDesc" class="mb-3">Product description goes here.</p>
+
+              <!-- shared specs for authority series -->
+              <div id="authoritySpecs" class="d-none">
+                <div class="mt-2 mb-2"><strong class="text-primary">Shared Specifications (All Authority Models)</strong></div>
+                <div class="specs-grid" id="specsGrid"></div>
+              </div>
+
               <div class="order-note mb-3">
                 <i class="bi bi-tag-fill me-2"></i>
                 <strong>Price:</strong> Please contact us for the current price.
@@ -420,8 +1420,6 @@
                   </li>
                 </ul>
               </div>
-
-              <!-- in-body Order button removed; use footer button -->
             </div>
           </div>
         </div>
@@ -470,7 +1468,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ===== FILTER + SORT + SEARCH + MICRO-FILTER + MODAL ===== -->
+  <!-- ===== FILTER + SORT + SEARCH + MICRO-FILTER + CROWN-FILTER + MODAL ===== -->
   <script>
     (function() {
       // ----- DOM refs -----
@@ -482,19 +1480,56 @@
       const searchInput = document.getElementById('searchInput');
       const searchBtn = document.getElementById('searchBtn');
 
-      // micro‑filter
+      // micro‑filter (wired/wireless)
       const microFilterBtns = document.querySelectorAll('#microFilterGroup .btn');
       let activeMicroFilter = 'all';
+
+      // crown‑filter
+      const crownFilterBtns = document.querySelectorAll('#crownFilterGroup .btn');
+      let activeCrownFilter = 'all';
 
       // modal
       const modalProductName = document.getElementById('modalProductName');
       const modalProductId = document.getElementById('modalProductId');
       const modalProductDesc = document.getElementById('modalProductDesc');
       const modalProductImg = document.getElementById('modalProductImg');
+      const authoritySpecs = document.getElementById('authoritySpecs');
+      const specsGrid = document.getElementById('specsGrid');
 
       let activeFilter = 'all';
 
       // ----- helpers -----
+      function initProductSliderControls() {
+        const crownSection = document.querySelector('.category-section[data-category="crown"]');
+        if (!crownSection) return;
+
+        const grid = crownSection.querySelector('.product-grid');
+        if (!grid) return;
+
+        const controls = document.createElement('div');
+        controls.className = 'slider-controls d-flex justify-content-end';
+        controls.innerHTML = `
+          <button type="button" class="btn btn-sm btn-outline-primary slider-prev" aria-label="Previous items">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-primary slider-next ms-2" aria-label="Next items">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        `;
+        crownSection.insertBefore(controls, grid);
+
+        const prevBtn = controls.querySelector('.slider-prev');
+        const nextBtn = controls.querySelector('.slider-next');
+        const scrollStep = () => Math.max(grid.clientWidth * 0.75, 300);
+
+        prevBtn.addEventListener('click', () => {
+          grid.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+          grid.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+        });
+      }
+
       function updateItemCount() {
         const visible = document.querySelectorAll('.product-item:not(.d-none)');
         itemCountSpan.textContent = visible.length;
@@ -538,6 +1573,44 @@
         applySort(sortSelect.value);
       }
 
+      // ----- apply crown‑filter (4ch/2ch/authority) -----
+      function applyCrownFilter(cfilter) {
+        activeCrownFilter = cfilter;
+        crownFilterBtns.forEach(btn => {
+          const val = btn.dataset.cfilter;
+          if (val === cfilter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        const crownSection = document.querySelector('.category-section[data-category="crown"]');
+        if (!crownSection) return;
+        const crownItems = crownSection.querySelectorAll('.product-item');
+        crownItems.forEach(item => {
+          const type = item.dataset.crowntype || 'all';
+          const section = item.closest('.category-section');
+          if (section && section.classList.contains('d-none')) {
+            item.classList.add('d-none');
+            return;
+          }
+          if (activeFilter !== 'all' && activeFilter !== 'crown') {
+            item.classList.add('d-none');
+            return;
+          }
+          if (cfilter === 'all' || type === cfilter) {
+            item.classList.remove('d-none');
+          } else {
+            item.classList.add('d-none');
+          }
+        });
+        if (searchInput.value.trim() !== '') {
+          applySearch(searchInput.value.trim());
+        }
+        applySort(sortSelect.value);
+      }
+
       // ----- main filter -----
       function applyFilter(category) {
         activeFilter = category;
@@ -570,6 +1643,15 @@
           }
         }
 
+        if (category === 'all' || category === 'crown') {
+          applyCrownFilter(activeCrownFilter);
+        } else {
+          const crownSection = document.querySelector('.category-section[data-category="crown"]');
+          if (crownSection && crownSection.classList.contains('d-none')) {
+            crownSection.querySelectorAll('.product-item').forEach(item => item.classList.add('d-none'));
+          }
+        }
+
         if (searchInput.value.trim() !== '') {
           applySearch(searchInput.value.trim());
         } else {
@@ -580,6 +1662,13 @@
               if (section.dataset.category === 'microphone') {
                 const type = item.dataset.mictype || 'all';
                 if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
+              } else if (section.dataset.category === 'crown') {
+                const type = item.dataset.crowntype || 'all';
+                if (activeCrownFilter === 'all' || type === activeCrownFilter) {
                   item.classList.remove('d-none');
                 } else {
                   item.classList.add('d-none');
@@ -616,6 +1705,13 @@
               } else {
                 item.classList.add('d-none');
               }
+            } else if (parentSection && parentSection.dataset.category === 'crown') {
+              const type = item.dataset.crowntype || 'all';
+              if (activeCrownFilter === 'all' || type === activeCrownFilter) {
+                item.classList.remove('d-none');
+              } else {
+                item.classList.add('d-none');
+              }
             } else {
               item.classList.remove('d-none');
             }
@@ -626,6 +1722,13 @@
               if (parentSection && parentSection.dataset.category === 'microphone') {
                 const type = item.dataset.mictype || 'all';
                 if (activeMicroFilter !== 'all' && type !== activeMicroFilter) {
+                  item.classList.add('d-none');
+                } else {
+                  item.classList.remove('d-none');
+                }
+              } else if (parentSection && parentSection.dataset.category === 'crown') {
+                const type = item.dataset.crowntype || 'all';
+                if (activeCrownFilter !== 'all' && type !== activeCrownFilter) {
                   item.classList.add('d-none');
                 } else {
                   item.classList.remove('d-none');
@@ -667,6 +1770,7 @@
         });
       }
       storeOriginalIndices();
+      initProductSliderControls();
 
       // ----- event: main filter buttons -----
       filterButtons.forEach(btn => {
@@ -684,6 +1788,13 @@
                 if (section.dataset.category === 'microphone') {
                   const type = item.dataset.mictype || 'all';
                   if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                    item.classList.remove('d-none');
+                  } else {
+                    item.classList.add('d-none');
+                  }
+                } else if (section.dataset.category === 'crown') {
+                  const type = item.dataset.crowntype || 'all';
+                  if (activeCrownFilter === 'all' || type === activeCrownFilter) {
                     item.classList.remove('d-none');
                   } else {
                     item.classList.add('d-none');
@@ -708,6 +1819,15 @@
         });
       });
 
+      // ----- event: crown‑filter buttons -----
+      crownFilterBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const cfilter = this.dataset.cfilter;
+          applyCrownFilter(cfilter);
+        });
+      });
+
       // ----- event: sort -----
       sortSelect.addEventListener('change', function() {
         applySort(this.value);
@@ -724,6 +1844,13 @@
               if (section.dataset.category === 'microphone') {
                 const type = item.dataset.mictype || 'all';
                 if (activeMicroFilter === 'all' || type === activeMicroFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
+              } else if (section.dataset.category === 'crown') {
+                const type = item.dataset.crowntype || 'all';
+                if (activeCrownFilter === 'all' || type === activeCrownFilter) {
                   item.classList.remove('d-none');
                 } else {
                   item.classList.add('d-none');
@@ -756,6 +1883,13 @@
                 } else {
                   item.classList.add('d-none');
                 }
+              } else if (section.dataset.category === 'crown') {
+                const type = item.dataset.crowntype || 'all';
+                if (activeCrownFilter === 'all' || type === activeCrownFilter) {
+                  item.classList.remove('d-none');
+                } else {
+                  item.classList.add('d-none');
+                }
               } else {
                 item.classList.remove('d-none');
               }
@@ -765,7 +1899,7 @@
         }
       });
 
-      // ----- modal: populate -----
+      // ----- modal: populate + show specs for authority -----
       document.querySelectorAll('.view-detail').forEach(btn => {
         btn.addEventListener('click', function(e) {
           const card = this.closest('.product-item');
@@ -773,6 +1907,27 @@
           modalProductName.textContent = card.dataset.name || 'Product';
           modalProductId.textContent = card.dataset.id || 'N/A';
           modalProductDesc.textContent = card.dataset.desc || 'No description available.';
+
+          // show specs if authority
+          const specsData = card.dataset.specs;
+          if (specsData && card.dataset.crowntype === 'authority') {
+            authoritySpecs.classList.remove('d-none');
+            specsGrid.innerHTML = '';
+            try {
+              const specs = JSON.parse(specsData);
+              for (const [key, val] of Object.entries(specs)) {
+                const div = document.createElement('div');
+                div.className = 'spec-item';
+                div.innerHTML = `<span class="spec-label">${key}</span><span class="spec-value">${val}</span>`;
+                specsGrid.appendChild(div);
+              }
+            } catch (e) {
+              specsGrid.innerHTML = '<div class="text-muted">Specifications not available</div>';
+            }
+          } else {
+            authoritySpecs.classList.add('d-none');
+          }
+
           const cardImage = card.querySelector('img');
           const fallbackImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="160"%3E%3Crect width="200" height="160" fill="%23e6eefc"/%3E%3Ctext x="100" y="80" font-family="Arial" font-size="16" fill="%230A4DBF" text-anchor="middle" dominant-baseline="central"%3EImage Unavailable%3C/text%3E%3C/svg%3E';
           const imageSrc = cardImage?.getAttribute('src') || card.dataset.img || fallbackImage;
@@ -787,6 +1942,7 @@
       // ----- init -----
       applyFilter('all');
       applyMicroFilter('all');
+      applyCrownFilter('all');
     })();
   </script>
 </body>
