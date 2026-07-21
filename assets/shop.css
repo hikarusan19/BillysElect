@@ -103,12 +103,32 @@
     }
 
     /* ─── filter tabs ─── */
+    .tab-filters {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      gap: 0.5rem;
+      padding-bottom: 0.35rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+    .tab-filters::-webkit-scrollbar {
+      height: 8px;
+    }
+    .tab-filters::-webkit-scrollbar-thumb {
+      background: rgba(10, 77, 191, 0.24);
+      border-radius: 999px;
+    }
     .tab-filters .btn {
+      flex: 0 0 auto;
+      white-space: nowrap;
       border-radius: 40px;
       padding: 0.35rem 1.6rem;
       font-weight: 600;
       font-size: 0.85rem;
       transition: all 0.2s;
+      scroll-snap-align: start;
     }
     .tab-filters .btn-outline-secondary {
       border-color: #d0dbe8;
@@ -155,16 +175,6 @@
       font-weight: 700;
       color: #0f2a4a;
     }
-    .badge-solar {
-      background: #f1b24a;
-      color: #1f2a1a;
-      font-weight: 600;
-      margin-left: 0.6rem;
-      padding: 0.2rem 0.9rem;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      vertical-align: middle;
-    }
     .item-count {
       color: #3b4b62;
       font-weight: 600;
@@ -182,6 +192,8 @@
     .category-section.d-none {
       display: none !important;
     }
+
+    /* Crown section uses the normal Bootstrap row/column layout, no horizontal slider */
 
     /* ─── contact info card ─── */
     .contact-info-card {
@@ -303,6 +315,75 @@
       border-color: rgba(255, 255, 255, 0.06);
     }
 
+    /* ─── crown dropdown ─── */
+    .crown-filter-group {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      width: 100%;
+      gap: 0.5rem;
+      padding-bottom: 0.35rem;
+      margin-top: 0.5rem;
+    }
+    .crown-filter-group::-webkit-scrollbar {
+      height: 8px;
+    }
+    .crown-filter-group::-webkit-scrollbar-thumb {
+      background: rgba(10, 77, 191, 0.24);
+      border-radius: 999px;
+    }
+    .crown-filter-group .btn {
+      border-radius: 30px;
+      padding: 0.2rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .crown-filter-group .btn-outline-secondary {
+      border-color: #b8ceec;
+      color: #1f3a5f;
+      background: #fff;
+    }
+    .crown-filter-group .btn-outline-secondary.active,
+    .crown-filter-group .btn-outline-secondary:hover {
+      background: #0A4DBF;
+      border-color: #0A4DBF;
+      color: #fff;
+    }
+
+    /* specs inside modal */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1rem;
+      font-size: 0.85rem;
+      background: #f8faff;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin: 0.5rem 0 0.8rem 0;
+      border: 1px solid #e9eef6;
+    }
+    .specs-grid .spec-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+      border-bottom: 1px dashed #e0e6f0;
+    }
+    .specs-grid .spec-item:last-child {
+      border-bottom: 0;
+    }
+    .specs-grid .spec-label {
+      color: #2f4057;
+      font-weight: 500;
+    }
+    .specs-grid .spec-value {
+      color: #0A4DBF;
+      font-weight: 600;
+    }
+
     /* ─── responsive ─── */
     @media (max-width: 576px) {
       .product-card img {
@@ -324,6 +405,9 @@
       .tab-filters .btn {
         padding: 0.25rem 1rem;
         font-size: 0.75rem;
+      }
+      .specs-grid {
+        grid-template-columns: 1fr;
       }
     }
   
