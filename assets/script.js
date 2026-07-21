@@ -121,7 +121,8 @@
       '.category-section[data-category="LONG-RANGE-BAFFLE"], ' +
       '.category-section[data-category="KARAOKE-SPEAKER-SYSTEM"], ' +
       '.category-section[data-category="PROFESSIONAL-BAFFLE"], ' +
-      '.category-section[data-category="PROFESSIONAL-SUBWOOFER"]'
+      '.category-section[data-category="PROFESSIONAL-SUBWOOFER"], ' +
+      '.category-section[data-category="KARAOKE-BAFFLE-WITH-AMPLIFIER"]'
     );
     
     crownSections.forEach(section => {
@@ -139,7 +140,7 @@
         const sectionCat = sectionElem ? sectionElem.dataset.category : '';
         const crownCategories = ['crown', 'INTRUMENTAL-SPEACKER-SYSTEM', 'ACTIVE-INSTRUMENTAL-SPEAKER-SYSTEM', 
                                 'LONG-RANGE-BAFFLE', 'KARAOKE-SPEAKER-SYSTEM', 'PROFESSIONAL-BAFFLE', 
-                                'PROFESSIONAL-SUBWOOFER'];
+                                'PROFESSIONAL-SUBWOOFER', 'KARAOKE-BAFFLE-WITH-AMPLIFIER'];
         const isCrownCategory = crownCategories.includes(sectionCat);
         
         if (activeFilter !== 'all' && isCrownCategory && activeFilter !== sectionCat && activeFilter !== 'crown') {
@@ -185,6 +186,8 @@
         shouldShow = true;
       } else if (category === 'crown-subwoofer' && sectionCat === 'PROFESSIONAL-SUBWOOFER') {
         shouldShow = true;
+      } else if (category === 'crown-karaoke-baffle' && sectionCat === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
+        shouldShow = true;
       } else if (category === sectionCat) {
         shouldShow = true;
       }
@@ -220,7 +223,7 @@
 
     // Apply crown filter for all crown-related categories
     const crownCategories = ['crown', 'crown-instrumental', 'crown-active', 'crown-longrange', 
-                           'crown-karaoke', 'crown-baffle', 'crown-subwoofer'];
+                           'crown-karaoke', 'crown-baffle', 'crown-subwoofer', 'crown-karaoke-baffle'];
     if (category === 'all' || crownCategories.includes(category)) {
       applyCrownFilter(activeCrownFilter);
     } else {
@@ -231,7 +234,8 @@
         '.category-section[data-category="LONG-RANGE-BAFFLE"], ' +
         '.category-section[data-category="KARAOKE-SPEAKER-SYSTEM"], ' +
         '.category-section[data-category="PROFESSIONAL-BAFFLE"], ' +
-        '.category-section[data-category="PROFESSIONAL-SUBWOOFER"]'
+        '.category-section[data-category="PROFESSIONAL-SUBWOOFER"], ' +
+        '.category-section[data-category="KARAOKE-BAFFLE-WITH-AMPLIFIER"]'
       );
       crownSections.forEach(section => {
         if (section.classList.contains('d-none')) {
@@ -261,7 +265,8 @@
                      section.dataset.category === 'LONG-RANGE-BAFFLE' ||
                      section.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                      section.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER') {
+                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                     section.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
             const type = item.dataset.crowntype || 'all';
             if (activeCrownFilter === 'all' || type === activeCrownFilter) {
               item.classList.remove('d-none');
@@ -312,7 +317,8 @@
                    parentSection.dataset.category === 'LONG-RANGE-BAFFLE' ||
                    parentSection.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                    parentSection.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                   parentSection.dataset.category === 'PROFESSIONAL-SUBWOOFER')) {
+                   parentSection.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                   parentSection.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER')) {
           const type = item.dataset.crowntype || 'all';
           if (activeCrownFilter === 'all' || type === activeCrownFilter) {
             item.classList.remove('d-none');
@@ -340,7 +346,8 @@
                      parentSection.dataset.category === 'LONG-RANGE-BAFFLE' ||
                      parentSection.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                      parentSection.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                     parentSection.dataset.category === 'PROFESSIONAL-SUBWOOFER')) {
+                     parentSection.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                     parentSection.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER')) {
             const type = item.dataset.crowntype || 'all';
             if (activeCrownFilter !== 'all' && type !== activeCrownFilter) {
               item.classList.add('d-none');
@@ -459,7 +466,8 @@
                        section.dataset.category === 'LONG-RANGE-BAFFLE' ||
                        section.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                        section.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                       section.dataset.category === 'PROFESSIONAL-SUBWOOFER') {
+                       section.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                       section.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
               const type = item.dataset.crowntype || 'all';
               if (activeCrownFilter === 'all' || type === activeCrownFilter) {
                 item.classList.remove('d-none');
@@ -521,7 +529,8 @@
                      section.dataset.category === 'LONG-RANGE-BAFFLE' ||
                      section.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                      section.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER') {
+                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                     section.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
             const type = item.dataset.crowntype || 'all';
             if (activeCrownFilter === 'all' || type === activeCrownFilter) {
               item.classList.remove('d-none');
@@ -562,7 +571,8 @@
                      section.dataset.category === 'LONG-RANGE-BAFFLE' ||
                      section.dataset.category === 'KARAOKE-SPEAKER-SYSTEM' ||
                      section.dataset.category === 'PROFESSIONAL-BAFFLE' ||
-                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER') {
+                     section.dataset.category === 'PROFESSIONAL-SUBWOOFER' ||
+                     section.dataset.category === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
             const type = item.dataset.crowntype || 'all';
             if (activeCrownFilter === 'all' || type === activeCrownFilter) {
               item.classList.remove('d-none');
