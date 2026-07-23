@@ -197,6 +197,10 @@
     async function loadItemContent() {
       try {
         const response = await fetch('item.html');
+        if (!response.ok) {
+          throw new Error(`Failed to load item.html: ${response.status}`);
+        }
+
         const html = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
@@ -216,8 +220,8 @@
         console.error('Failed to load item.html:', err);
       }
     }
+
     loadItemContent();
   </script>
-  <script src="./assets/script.js "></script>
 </body>
 </html>
