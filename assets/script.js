@@ -163,7 +163,7 @@
   }
 
   // ============================================================
-  //  MAIN CATEGORY FILTER (UPDATED WITH ALL NEW CATEGORIES)
+  //  MAIN CATEGORY FILTER (UPDATED WITH ALL CATEGORIES)
   // ============================================================
   function applyFilter(category) {
     activeFilter = category;
@@ -174,7 +174,9 @@
       
       if (category === 'all') {
         shouldShow = true;
-      } else if (category === 'crown-instrumental' && sectionCat === 'INTRUMENTAL-SPEACKER-SYSTEM') {
+      } 
+      // Crown Categories
+      else if (category === 'crown-instrumental' && sectionCat === 'INTRUMENTAL-SPEACKER-SYSTEM') {
         shouldShow = true;
       } else if (category === 'crown-active' && sectionCat === 'ACTIVE-INSTRUMENTAL-SPEAKER-SYSTEM') {
         shouldShow = true;
@@ -188,7 +190,38 @@
         shouldShow = true;
       } else if (category === 'crown-karaoke-baffle' && sectionCat === 'KARAOKE-BAFFLE-WITH-AMPLIFIER') {
         shouldShow = true;
-      } else if (category === sectionCat) {
+      }
+      // Kevler Categories
+      else if (category === 'kevler-kv' && sectionCat === 'KEVLER-KV-SERIES') {
+        shouldShow = true;
+      } else if (category === 'kevler-kr' && sectionCat === 'KEVLER-KR-SERIES') {
+        shouldShow = true;
+      } else if (category === 'kevler-kr-active' && sectionCat === 'KEVLER-KR-ACTIVE-SERIES') {
+        shouldShow = true;
+      } else if (category === 'kevler-lite' && sectionCat === 'KEVLER-LITE-SERIES') {
+        shouldShow = true;
+      } else if (category === 'kevler-eon-hp' && sectionCat === 'KEVLER-EON-HP-SERIES') {
+        shouldShow = true;
+      } else if (category === 'kevler-eon' && sectionCat === 'KEVLER-EON-SERIES') {
+        shouldShow = true;
+      // In the applyFilter function, add these category checks after the existing Kevler categories:
+
+} else if (category === 'kevler-wave' && sectionCat === 'KEVLER-WAVE-SERIES') {
+  shouldShow = true;
+} else if (category === 'kevler-tws' && sectionCat === 'KEVLER-TWS-SERIES') {
+  shouldShow = true;
+} else if (category === 'kevler-art' && sectionCat === 'KEVLER-ART-SERIES') {
+  shouldShow = true;
+} else if (category === 'kevler-molded' && sectionCat === 'KEVLER-MOLDED-SPEAKERS') {
+  shouldShow = true;
+} else if (category === 'kevler-axl' && sectionCat === 'KEVLER-AXL-SERIES') {
+  shouldShow = true;
+} else if (category === 'kevler-zlx' && sectionCat === 'KEVLER-ZLX-SERIES') {
+  shouldShow = true;
+}
+      
+      // General category match
+      else if (category === sectionCat) {
         shouldShow = true;
       }
       
@@ -224,6 +257,11 @@
     // Apply crown filter for all crown-related categories
     const crownCategories = ['crown', 'crown-instrumental', 'crown-active', 'crown-longrange', 
                            'crown-karaoke', 'crown-baffle', 'crown-subwoofer', 'crown-karaoke-baffle'];
+    
+    // Apply kevler filter for all kevler-related categories
+    const kevlerCategories = ['kevler-kv', 'kevler-kr', 'kevler-kr-active', 'kevler-lite', 
+                            'kevler-eon-hp', 'kevler-eon'];
+    
     if (category === 'all' || crownCategories.includes(category)) {
       applyCrownFilter(activeCrownFilter);
     } else {
